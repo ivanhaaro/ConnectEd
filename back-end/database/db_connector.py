@@ -7,18 +7,32 @@ class DBConnector:
     def create_table(self):
         cursor = self.conn.cursor()
         cursor.execute("""
-            CREATE TABLE IF NOT EXISTS Centro_educativo (
-                nombre TEXT,
-                tipo  TEXT,
-                direccion TEXT,
-                codigo_postal SMALLINT,
-                longitud DOUBLE,
-                latitud DOUBLE,
-                telefono TEXT,
-                descripcion TEXT
+            CREATE TABLE IF NOT EXISTS Provincia (
+                codigo INT PRIMARY KEY,
+                nombre VARCHAR(80) NOT NULL
             );
-        
-            CREATE TABLE IF NOT EXISTS Localidad
+
+            CREATE TABLE IF NOT EXISTS Localidad (
+                codigo INT PRIMARY KEY,
+                nombre VARCHAR(80) NOT NULL,
+                en_provincia INT NOT NULL,
+                FOREIGN KEY (en_provincia) REFERENCES Provincia(codigo)
+            );
+
+            CREATE TABLE IF NOT EXISTS Centro_Educativo (
+                id INT PRIMARY KEY,
+                nombre VARCHAR(80) NOT NULL,
+                tipo ENUM('público', 'concertado', 'privado', 'otros') NOT NULL,
+                dirección VARCHAR(100) NOT NULL,
+                codigo_postal INT NOT NULL,
+                longitud DOUBLE NOT NULL,
+                latitud DOUBLE NOT NULL,
+                teléfono INT,
+                descripción VARCHAR(120),
+                en_localidad INT NOT NULL,
+                FOREIGN KEY (en_localidad) REFERENCES Localidad(codigo)
+            );
+
             
         """)
         self.conn.commit()
