@@ -22,12 +22,12 @@ class DBConnector:
             CREATE TABLE IF NOT EXISTS Centro_Educativo (
                 id INT PRIMARY KEY,
                 nombre VARCHAR(80) NOT NULL,
-                tipo ENUM('público', 'concertado', 'privado', 'otros') NOT NULL,
+                tipo ENUM('publico', 'concertado', 'privado', 'otros') NOT NULL,
                 dirección VARCHAR(100) NOT NULL,
                 codigo_postal INT NOT NULL,
                 longitud DOUBLE NOT NULL,
                 latitud DOUBLE NOT NULL,
-                teléfono INT,
+                telefono INT,
                 descripción VARCHAR(120),
                 en_localidad INT NOT NULL,
                 FOREIGN KEY (en_localidad) REFERENCES Localidad(codigo)
