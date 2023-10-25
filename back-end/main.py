@@ -3,7 +3,7 @@ from models.data_model import DataModel
 
 def main():
     # Ruta al archivo CSV que deseas procesar
-    csv_file_path = 'centros-docentes-de-la-comunitat-valenciana.csv'
+    csv_file_path = 'back-end/centros-docentes-de-la-comunitat-valenciana.csv'
 
     # Crear una instancia del extractor de CSV
     csv_extractor = CSVExtractor()
