@@ -8,17 +8,18 @@ class JSONExtractor:
             data_list = json.load(json_file)
             for item in data_list:
                 # Create DataModel objects for each JSON item
-                localidad = item['localidad']
-                provincia = item['provincia']
+                localidad = {'codigo': '', 'nombre': item['loccen']}
+                provincia = {'codigo': '30', 'nombre': 'Murcia'}
+
                 data_model = DataModel(
-                    nombre=item['nombre'],
-                    tipo=item['tipo'],
-                    direccion=item['direccion'],
-                    codigo_postal=item['codigo_postal'],
-                    longitud=item['longitud'],
-                    latitud=item['latitud'],
-                    telefono=item['telefono'],
-                    descripcion=item['descripcion'],
+                    nombre=item['dencen'],
+                    tipo=item['titularidad'],
+                    direccion=item['domcen'],
+                    codigo_postal=item['cpcen'],
+                    longitud=0,
+                    latitud=0,
+                    telefono=0,
+                    descripcion=item['presentacionCorta'],
                     localidad=localidad,
                     provincia=provincia
                 )
