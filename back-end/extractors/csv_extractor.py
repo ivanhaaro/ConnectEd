@@ -7,6 +7,7 @@ class CSVExtractor:
         with open(file_path, 'r', encoding='utf-8') as csv_file:
             csv_reader = csv.DictReader(csv_file, delimiter=';')  # Especifica el delimitador utilizado en tu CSV
             for row in csv_reader:
+            
                 try:
                     localidad = {'codigo': row['CODIGO_POSTAL'], 'nombre': row['LOCALIDAD']}
                     provincia = {'codigo': row['CODIGO_POSTAL'][:2], 'nombre': row['PROVINCIA']}
@@ -15,8 +16,8 @@ class CSVExtractor:
                         tipo=row['TIPO_VIA'],
                         direccion=row['DIRECCION'],
                         codigo_postal=row['CODIGO_POSTAL'],
-                        longitud=row['LONGITUD'],
-                        latitud=row['LATITUD'],
+                        longitud=0,
+                        latitud=0,
                         telefono=row['TELEFONO'],
                         descripcion=row['DENOMINACION_ESPECIFICA'],
                         localidad=localidad,
