@@ -5,22 +5,25 @@ class CSVExtractor:
     def extract_data(self, file_path):
         data = []
         with open(file_path, 'r', encoding='utf-8') as csv_file:
-            csv_reader = csv.DictReader(csv_file)
+            csv_reader = csv.DictReader(csv_file, delimiter=';')  # Especifica el delimitador utilizado en tu CSV
             for row in csv_reader:
-                # Create DataModel objects for each row
-                localidad = {'codigo': row['CODIGO_POSTAL'], 'nombre': row['LOCALIDAD']}
-                provincia = {'codigo': row['CODIGO_POSTAL'][:2], 'nombre': row['PROVINCIA']}
-                data_model = DataModel(
-                    nombre=row['denominacion'],
-                    tipo=row['tipo'],
-                    direccion=row['direccion'],
-                    codigo_postal=row['codigo_postal'],
-                    longitud=row['longitud'],
-                    latitud=row['latitud'],
-                    telefono=row['telefono'],
-                    descripcion=row['descripcion'],
-                    localidad=localidad,
-                    provincia=provincia
-                )
-                data.append(data_model)
+            
+                try:
+                    localidad = {'codigo': row['CODIGO_POSTAL'], 'nombre': row['LOCALIDAD']}
+                    provincia = {'codigo': row['CODIGO_POSTAL'][:2], 'nombre': row['PROVINCIA']}
+                    data_model = DataModel(
+                        nombre=row['DENOMINACION'],
+                        tipo=row['TIPO_VIA'],
+                        direccion=row['DIRECCION'],
+                        codigo_postal=row['CODIGO_POSTAL'],
+                        longitud=0,
+                        latitud=0,
+                        telefono=row['TELEFONO'],
+                        descripcion=row['DENOMINACION_ESPECIFICA'],
+                        localidad=localidad,
+                        provincia=provincia
+                    )
+                    data.append(data_model)
+                except Exception as e:
+                    print(f"Error al procesar la fila: {e}")
         return data
