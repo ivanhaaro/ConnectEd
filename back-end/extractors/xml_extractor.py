@@ -6,7 +6,7 @@ class XMLExtractor:
         data = []
         tree = ET.parse(file_path)
         root = tree.getroot()
-        for item in root:
+        for item in root: 
             # Extract data from XML and create DataModel objects
             localidad_element = item.find('localidad')
             provincia_element = item.find('provincia')
