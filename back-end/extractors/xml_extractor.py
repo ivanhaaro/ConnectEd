@@ -6,23 +6,42 @@ class XMLExtractor:
         data = []
         tree = ET.parse(file_path)
         root = tree.getroot()
-        for item in root: 
-            # Extract data from XML and create DataModel objects
-            localidad_element = item.find('localidad')
-            provincia_element = item.find('provincia')
-            localidad = {'codigo': localidad_element.find('codigo').text, 'nombre': localidad_element.find('nombre').text}
-            provincia = {'codigo': provincia_element.find('codigo').text, 'nombre': provincia_element.find('nombre').text}
+
+        for row in root.findall('.//row'):
+            # Crear un diccionario para almacenar datos de cada fila
+            row_data = {}
+
+            # Iterar sobre los elementos hijos de la fila
+            for element in row:
+                # Utilizar el nombre del elemento como clave y su texto como valor
+                row_data[element.tag] = element.text
+
+            # Crear un objeto DataModel a partir de los datos de la fila
+            localidad = {'codigo': '', 'nombre': row_data.get('nom_municipi')}
+            provincia = {
+                'codigo': row_data.get('codi_postal'), 'nombre': row_data.get('codi_postal')}
+            tipo = row_data.get('nom_naturalesa')
+            if tipo == 'Privat':
+                tipo = 'Privado'
+            elif tipo == 'Públic':
+                tipo = 'Público'
+
             data_model = DataModel(
-                nombre=item.find('nombre').text,
-                tipo=item.find('tipo').text,
-                direccion=item.find('direccion').text,
-                codigo_postal=item.find('codigo_postal').text,
-                longitud=item.find('longitud').text,
-                latitud=item.find('latitud').text,
-                telefono=item.find('telefono').text,
-                descripcion=item.find('descripcion').text,
+                nombre= row_data.get('denominaci_completa'),
+                tipo= tipo,
+                codigo_postal=row_data.get('codi_postal'),
+                direccion=row_data.get('adre_a'),
+                longitud=row_data.get('coordenades_geo_x'),
+                latitud=row_data.get('coordenades_geo_y'),
+                telefono= '',
+                descripcion= '',
                 localidad=localidad,
-                provincia=provincia
+                provincia=provincia,
+
             )
+
+            # Agregar el objeto DataModel a la lista de datos
             data.append(data_model)
+
         return data
+
