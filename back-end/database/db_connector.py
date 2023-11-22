@@ -37,10 +37,13 @@ class DBConnector:
         """)
         self.conn.commit()
 
-    def insert_data(self, data):
+    def insert_dataMurcia(self, data):
         cursor = self.conn.cursor()
         cursor.executemany("""
-            INSERT INTO data (column1, column2, column3)
+            INSERT INTO Provincia (nombre)
+            VALUES (?, ?);
+            INSERT INTO Localidad (codigo, nombre, en_provincia)
             VALUES (?, ?, ?)
+            INSERT INTO Centro_Educativo (nombre, tipo, direccion, codigo_postal, longitud, latitud, telefono, descripcion, en_localidad)
         """, [(item.column1, item.column2, item.column3) for item in data])
         self.conn.commit()
