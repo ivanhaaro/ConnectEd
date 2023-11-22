@@ -1,5 +1,4 @@
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 import sys
 
 def getlatlong(place):
@@ -8,7 +7,33 @@ def getlatlong(place):
     
     driver.get("https://google.com")
 
-    input = driver.find_element_by_xpath('/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/textarea')
+    # Buscamos la página
+    buscador = driver.find_element_by_id("APjFqb")
+    buscador.send_keys("coordenadas-gps")
+
+    buttonElement = driver.find_element_by_name("btnK")
+    buttonElement.click()
+
+    # Entramos en la página
+    stringId = driver.find_element_by_class_name("LC20lb MBeuO DKV0Md")
+    stringId.click()
+
+    # Buscamos la opción de poner la dirección, así chill
+    direccionTextBox = driver.find_element_by_id("address")
+    direccionTextBox.clear()
+    direccionTextBox.send_keys("Massamagrell")
+
+    # Clicamos y Buscamos
+    buttonElement = driver.find_element_by_class("btn btn-primary")
+    buttonElement.click()
+
+    # Obtenemos los datos
+    latitudElement = driver.find_element_by_id("latitude")
+    longitudElement = driver.find_element_by_id("longitud")
+
+    latitud = latitudElement.get_attribute("value")
+    print(latitud)
+    longitud = longitudElement.get_attribute("value")
 
     input.send_keys(place + "Latitude and Longitude" + Keys.ENTER)
 
