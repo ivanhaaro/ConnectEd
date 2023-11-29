@@ -5,19 +5,19 @@ from extractors.json_extractor import JSONExtractor
 def main():
     # Ruta al archivo CSV que deseas procesar
     csv_file_path = 'back-end/centros-docentes-de-la-comunitat-valenciana.csv'
-    json_file_path = 'back-end/centros.json'
-    xml_file_path = 'back-end/centres.xml'
+    # json_file_path = 'back-end/centros.json'
+    # xml_file_path = 'back-end/centres.xml'
 
     # Crear una instancia del extractor de CSV
     csv_extractor = CSVExtractor()
-    json_extractor = JSONExtractor()
-    xml_extractor = XMLExtractor()
+    # json_extractor = JSONExtractor()
+    # xml_extractor = XMLExtractor()
 
     # Extraer los datos del archivo CSV
-    #data_list = csv_extractor.extract_data(csv_file_path)
-    data_list = json_extractor.extract_data(json_file_path)
-    data_list.append(csv_extractor.extract_data(csv_file_path))
-    data_list.append(xml_extractor.extract_data(xml_file_path))
+    data_list = csv_extractor.extract_data(csv_file_path)
+    # data_list = json_extractor.extract_data(json_file_path)
+    # data_list.append(csv_extractor.extract_data(csv_file_path))
+    # data_list.append(xml_extractor.extract_data(xml_file_path))
 
     # Imprimir los datos extraídos
     for data in data_list:

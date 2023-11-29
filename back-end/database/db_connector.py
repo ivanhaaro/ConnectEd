@@ -48,12 +48,15 @@ class DBConnector:
                 VALUES (?, ?, ?)""", 
                 (item.provincia.codigo, item.provincia.nombre, item.localidad.nombre, item.provincia.codigo)
             )
-            conn.commit()
+            self.conn.commit()
             loc_id = cursor.lastrowid
-
             cursor.execute("""
-                INSERT INTO 
+                INSERT INTO Centro_Educativo (nombre, tipo, direccion, 
+                           codigo_postal, longitud, latitud, telefono, descripcion)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """
+                (item.nombre, item.tipo, item.direccion, item.codigo_postal,
+                 item.longitud, item.latitud, item.telefono, item.descripcion)   
             )
             
         self.conn.commit()
