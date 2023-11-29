@@ -1,5 +1,6 @@
-from selenium import webdriver
 import sys
+from selenium import webdriver
+
 
 def getlatlong(place):
     
