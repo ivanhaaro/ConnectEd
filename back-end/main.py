@@ -5,7 +5,7 @@ from extractors.json_extractor import JSONExtractor
 def main():
     # Ruta al archivo CSV que deseas procesar
     csv_file_path = 'back-end/centros-docentes-de-la-comunitat-valenciana.csv'
-    json_file_path = 'back-end/centros.json'
+    json_file_path = 'back-end/MUR.json'
     xml_file_path = 'back-end/centres.xml'
 
     # Crear una instancia del extractor de CSV
@@ -33,8 +33,8 @@ def main():
         print()
     
 
-    for error in errors:
-        print(error)
+    # for error in errors:
+    #     print(error)
 
 
 if __name__ == "__main__":

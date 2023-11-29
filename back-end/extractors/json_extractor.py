@@ -29,7 +29,7 @@ class JSONExtractor:
                 elif titularidad == 'C':
                     titularidad = 'Concertado'
                 else:
-                    titularidad = 'Otro'
+                    continue
 
                 # Detect direccion errors
                 domcen = item['domcen']
@@ -56,6 +56,7 @@ class JSONExtractor:
                     cpcen = item['cpcen']
                     if not validations.isValidPostalCode(cpcen):
                         errors.append('El código postal "' + cpcen + '" del centro: ' + dencen + ' es inválido.')
+                        continue
 
                 #Description error detection
                 descp = ''
@@ -71,11 +72,11 @@ class JSONExtractor:
                     nombre=dencen,
                     tipo=titularidad,
                     direccion=domcen,
-                    codigo_postal=item['cpcen'],
+                    codigo_postal=cpcen,
                     longitud=lon,
                     latitud=lat,
                     telefono=tel,
-                    descripcion=item['presentacionCorta'],
+                    descripcion=descp,
                     localidad=localidad,
                     provincia=provincia
                 )
