@@ -1,5 +1,5 @@
 import sqlite3
-
+import models.data_model
 class DBConnector:
     def __init__(self, db_name):
         self.conn = sqlite3.connect(db_name)
@@ -37,10 +37,23 @@ class DBConnector:
         """)
         self.conn.commit()
 
-    def insert_data(self, data):
+    def insert_dataMurcia(self, data: models.data_model.DataModel):
         cursor = self.conn.cursor()
-        cursor.executemany("""
-            INSERT INTO data (column1, column2, column3)
-            VALUES (?, ?, ?)
-        """, [(item.column1, item.column2, item.column3) for item in data])
+        for item in data:
+
+            cursor.execute(""" 
+                INSERT INTO Provincia (codigo, nombre)
+                VALUES (?, ?);
+                INSERT INTO Localidad (nombre, en_provincia)
+                VALUES (?, ?, ?)""", 
+                (item.provincia.codigo, item.provincia.nombre, item.localidad.nombre, item.provincia.codigo)
+            )
+            conn.commit()
+            loc_id = cursor.lastrowid
+
+            cursor.execute("""
+                INSERT INTO 
+            """
+            )
+            
         self.conn.commit()

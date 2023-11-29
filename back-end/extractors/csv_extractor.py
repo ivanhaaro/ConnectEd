@@ -1,5 +1,6 @@
 import csv
 from models.data_model import DataModel
+from selenium.scraper import getlatlong
 
 class CSVExtractor:
     def extract_data(self, file_path):
@@ -23,6 +24,7 @@ class CSVExtractor:
                         localidad=localidad,
                         provincia=provincia
                     )
+                    getlatlong()
                     data.append(data_model)
                 except Exception as e:
                     print(f"Error al procesar la fila: {e}")
