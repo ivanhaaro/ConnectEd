@@ -29,6 +29,7 @@ class JSONExtractor:
                 elif titularidad == 'C':
                     titularidad = 'Concertado'
                 else:
+                    errors.append('El tipo "' + titularidad + '" del centro: ' + domcen + ' es inválido')
                     continue
 
                 # Detect direccion errors
@@ -38,9 +39,20 @@ class JSONExtractor:
 
                 # Latitude and Longitude error detection
                 if 'geo-referencia' in item:
-                    lon = item['geo-referencia']['lon']
-                    lat = item['geo-referencia']['lat']
+                    referencia = item['geo-referencia']
+
+                    if 'lon' in referencia:
+                        lon = item['geo-referencia']['lon']
+                        if not validations.isValidString(str(lon)):
+                            errors.append('La longitud "' + lon + '" del centro: ' + dencen + ' es inválida.') 
+                    
+                    if 'lat' in referencia:
+                        lat = item['geo-referencia']['lat']
+                        if not validations.isValidString(str(lat)):
+                            errors.append('La latitud "' + lat + '" del centro: ' + dencen + ' es inválida.')
+
                 else:
+                    errors.append(errors.append('La latitud y longitud del centro: ' + dencen + ' son inválidas.'))
                     continue
 
                 #Phone number error detection
@@ -51,7 +63,6 @@ class JSONExtractor:
                         errors.append('El número de teléfono "' + tel + '" del centro: ' + dencen + ' es inválido.')    
 
                 #Postal code error detection
-                cpcen = ''
                 if 'cpcen' in item:
                     cpcen = item['cpcen']
                     if not validations.isValidPostalCode(cpcen):
@@ -62,10 +73,17 @@ class JSONExtractor:
                 descp = ''
                 if 'presentacionCorta' in item:
                     descp = item['presentacionCorta']
-                    if not validations.isValidString(descp):
-                        errors.append('La descripción "' + descp + '" del centro: ' + dencen + ' es inválida.')
+                    # if not validations.isValidString(descp):
+                    #     errors.append('La descripción "' + descp + '" del centro: ' + dencen + ' es inválida.')
 
-                localidad = {'codigo': item['cpcen'], 'nombre': item['loccen']}
+                if 'loccen' in item:
+                    loccen = item['loccen']
+                    if not validations.isValidString(loccen):
+                        errors.append('La localidad "' + loccen + '" del centro: ' + dencen + ' es inválida.')
+                        continue
+                    else:
+                        localidad = {'codigo': item['cpcen'], 'nombre': item['loccen']}
+
                 provincia = {'codigo': '30', 'nombre': 'Murcia'}   
 
                 data_model = DataModel(

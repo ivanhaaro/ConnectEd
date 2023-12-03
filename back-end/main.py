@@ -14,8 +14,8 @@ def main():
     xml_extractor = XMLExtractor()
 
     # Extraer los datos del archivo CSV
-    data_list = csv_extractor.extract_data(csv_file_path)
-    # data_list, errors = json_extractor.extract_data(json_file_path)
+    # data_list = csv_extractor.extract_data(csv_file_path)
+    data_list, errors = json_extractor.extract_data(json_file_path)
     #data_list.append(xml_extractor.extract_data(xml_file_path))
 
     # Imprimir los datos extraídos
