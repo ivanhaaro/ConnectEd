@@ -14,6 +14,12 @@ class CSVExtractor:
             for row in csv_reader:
             
                 try:
+                    # Detect name errors
+                    dencen = row['DENOMINACION']
+                    if not validations.isValidString(dencen):
+                        errors.append('El nombre del centro "' + dencen + '" es inválido.')
+                        continue
+
                     #Postal code error detection
                     if 'CODIGO_POSTAL' in row:
                         cpcen = row['CODIGO_POSTAL']
@@ -26,12 +32,6 @@ class CSVExtractor:
                             provincia = {'codigo': row['CODIGO_POSTAL'][:2], 'nombre': row['PROVINCIA']}
                     else:
                         errors.append('El código postal no existe')
-                        continue
-
-                    # Detect name errors
-                    dencen = row['DENOMINACION']
-                    if not validations.isValidString(dencen):
-                        errors.append('El nombre del centro "' + dencen + '" es inválido.')
                         continue
 
                     tipoRegimen=row['REGIMEN'],
