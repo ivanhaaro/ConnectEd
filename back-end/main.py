@@ -1,6 +1,7 @@
 from extractors.xml_extractor import XMLExtractor
 from extractors.csv_extractor import CSVExtractor
 from extractors.json_extractor import JSONExtractor
+from database.db_connector import DBConnector
 
 def main():
     # Ruta al archivo CSV que deseas procesar
@@ -39,6 +40,11 @@ def main():
 
     # for error in errors:
     #     print(error)
+
+    #Insert data into database
+    db = DBConnector("database")
+    db.create_table()
+    db.insert_data(data_list)
 
 
 if __name__ == "__main__":
