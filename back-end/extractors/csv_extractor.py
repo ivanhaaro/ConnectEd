@@ -20,6 +20,13 @@ class CSVExtractor:
                         errors.append('El nombre del centro "' + dencen + '" es inválido.')
                         continue
 
+
+                    # Detect name errors
+                    dencen = row['DENOMINACION']
+                    if not validations.isValidString(dencen):
+                        errors.append('El nombre del centro "' + dencen + '" es inválido.')
+                        continue
+
                     #Postal code error detection
                     if 'CODIGO_POSTAL' in row:
                         cpcen = row['CODIGO_POSTAL']
@@ -34,7 +41,7 @@ class CSVExtractor:
                         errors.append('El código postal no existe')
                         continue
 
-                    tipoRegimen=row['REGIMEN'],
+                    tipoRegimen=row['REGIMEN']
                     if tipoRegimen == 'PÚB.':
                         tipoRegimen = 'Público'
                     elif tipoRegimen == 'PRIV.':
@@ -44,7 +51,7 @@ class CSVExtractor:
                     elif tipoRegimen == 'OTROS':
                         tipoRegimen = 'Otros'
                     else:
-                        errors.append('El tipo "' + tipoRegimen + '" es inválido')
+                        errors.append(f'El tipo {tipoRegimen} es inválido')
                         continue
               
                     #Phone number error detection

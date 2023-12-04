@@ -5,9 +5,9 @@ from database.db_connector import DBConnector
 
 def main():
     # Ruta al archivo CSV que deseas procesar
-    csv_file_path = 'back-end/centros-docentes-de-la-comunitat-valenciana.csv'
+    csv_file_path = 'back-end/CV.csv'
     json_file_path = 'back-end/MUR.json'
-    xml_file_path = 'back-end/centres.xml'
+    xml_file_path = 'back-end/CAT.xml'
 
     # Crear una instancia del extractor de CSV
     csv_extractor = CSVExtractor()
