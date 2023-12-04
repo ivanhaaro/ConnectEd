@@ -17,13 +17,13 @@ def main():
     # Extraer los datos de los archivos
     #data_list, errors = json_extractor.extract_data(json_file_path)
 
-    # data_listCSV, errorsCSV = csv_extractor.extract_data(csv_file_path)
-    # data_list.append(data_listCSV)
-    # errors.append(errorsCSV)
+    data_list, errors = csv_extractor.extract_data(csv_file_path)
+    # data_list.extend(data_listCSV)
+    # errors.extend(errorsCSV)
 
-    data_list, errors = xml_extractor.extract_data(xml_file_path)
-    # data_list.append(data_listXML)
-    # errors.append(errorsXML)
+    #data_listXML, errorsXML = xml_extractor.extract_data(xml_file_path)
+    # data_list.extend(data_listXML)
+    # errors.extend(errorsXML)
 
     # Imprimir los datos extraídos
     for data in data_list:

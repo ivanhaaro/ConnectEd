@@ -89,5 +89,5 @@ class CSVExtractor:
                     print(f"Longitud: {data_model.longitud} Latitud= {data_model.latitud}")
                     data.append(data_model)
                 except Exception as e:
-                    print(f"Error al procesar la fila")
+                    print(f"Error al procesar la fila " + e)
         return data
