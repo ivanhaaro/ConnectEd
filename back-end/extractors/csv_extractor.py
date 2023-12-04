@@ -35,11 +35,11 @@ class CSVExtractor:
                         continue
 
                     tipoRegimen=row['REGIMEN'],
-                    if tipoRegimen == 'PÚB':
+                    if tipoRegimen == 'PÚB.':
                         tipoRegimen = 'Público'
-                    elif tipoRegimen == 'PRIV':
+                    elif tipoRegimen == 'PRIV.':
                         tipoRegimen = 'Privado'
-                    elif tipoRegimen == 'PRIV.CONC.':
+                    elif tipoRegimen == 'PRIV. CONC.':
                         tipoRegimen = 'Concertado'
                     elif tipoRegimen == 'OTROS':
                         tipoRegimen = 'Otros'
