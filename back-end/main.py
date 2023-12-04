@@ -40,8 +40,8 @@ def main():
         print()
     
 
-    # for error in errors:
-    #     print(error)
+    for error in errors:
+        print(error)
 
     #Insert data into database
     db = DBConnector("database")

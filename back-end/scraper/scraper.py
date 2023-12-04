@@ -30,7 +30,7 @@ class CoordinateScraper:
             except:
                 return False
 
-            if latitud != self.last_latitude or longitud != self.last_longitude:
+            if (len(latitud) > 5) and (latitud != self.last_latitude or longitud != self.last_longitude):
                 self.last_latitude = latitud
                 self.last_longitude = longitud
                 return latitud, longitud
