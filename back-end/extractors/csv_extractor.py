@@ -14,6 +14,12 @@ class CSVExtractor:
             for row in csv_reader:
             
                 try:
+                    # Detect name errors
+                    dencen = row['DENOMINACION']
+                    if not validations.isValidString(dencen):
+                        errors.append('El nombre del centro "' + dencen + '" es inválido.')
+                        continue
+
 
                     # Detect name errors
                     dencen = row['DENOMINACION']
