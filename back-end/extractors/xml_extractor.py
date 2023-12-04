@@ -48,7 +48,7 @@ class XMLExtractor:
                 if tipo == 'Privat':
                     tipo = 'Privado'
                 elif tipo == 'Públic':
-                    tipo = 'Público'
+                    tipo = 'Publico'
                 else:
                      errors.append('El tipo especificado no es correcto')
                      continue

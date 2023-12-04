@@ -14,14 +14,16 @@ def main():
     json_extractor = JSONExtractor()
     xml_extractor = XMLExtractor()
 
-    # Extraer los datos del archivo CSV
-    data_list, errors = csv_extractor.extract_data(csv_file_path)
-    data_listJSON, errorsJSON = json_extractor.extract_data(json_file_path)
-    data_list.append(data_listJSON)
-    errors.append(errorsJSON)
-    data_listXML, errorsXML = xml_extractor.extract_data(xml_file_path)
-    data_list.append(data_listXML)
-    errors.append(errorsXML)
+    # Extraer los datos de los archivos
+    #data_list, errors = json_extractor.extract_data(json_file_path)
+
+    # data_listCSV, errorsCSV = csv_extractor.extract_data(csv_file_path)
+    # data_list.append(data_listCSV)
+    # errors.append(errorsCSV)
+
+    data_list, errors = xml_extractor.extract_data(xml_file_path)
+    # data_list.append(data_listXML)
+    # errors.append(errorsXML)
 
     # Imprimir los datos extraídos
     for data in data_list:
