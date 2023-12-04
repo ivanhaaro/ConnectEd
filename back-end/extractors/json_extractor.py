@@ -9,7 +9,7 @@ class JSONExtractor:
         errors = []
         validations = Validations()
 
-        with open(file_path, 'r') as json_file:
+        with open(file_path, 'r', encoding='utf-8') as json_file:
             data_list = json.load(json_file)
 
             for item in data_list:
