@@ -14,13 +14,25 @@ class CSVExtractor:
             for row in csv_reader:
             
                 try:
-                    localidad = {'codigo': row['CODIGO_POSTAL'], 'nombre': row['LOCALIDAD']}
-                    provincia = {'codigo': row['CODIGO_POSTAL'][:2], 'nombre': row['PROVINCIA']}
+                    #Postal code error detection
+                    if 'CODIGO_POSTAL' in row:
+                        cpcen = row['CODIGO_POSTAL']
+                        if not validations.isValidPostalCode(cpcen):
+                            errors.append('El código postal "' + cpcen + '" del centro: ' + dencen + ' es inválido.')
+                            continue
+                        if 'LOCALIDAD' in row:
+                            localidad = {'codigo': row['CODIGO_POSTAL'], 'nombre': row['LOCALIDAD']}
+                        if 'PROVINCIA' in row:
+                            provincia = {'codigo': row['CODIGO_POSTAL'][:2], 'nombre': row['PROVINCIA']}
+                    else:
+                        errors.append('El código postal no existe')
+                        continue
 
                     # Detect name errors
                     dencen = row['DENOMINACION']
                     if not validations.isValidString(dencen):
                         errors.append('El nombre del centro "' + dencen + '" es inválido.')
+                        continue
 
                     tipoRegimen=row['REGIMEN'],
                     if tipoRegimen == 'PÚB':
@@ -34,20 +46,14 @@ class CSVExtractor:
                     else:
                         errors.append('El tipo "' + tipoRegimen + '" es inválido')
                         continue
-
-                    #Postal code error detection
-                    if 'CODIGO_POSTAL' in row:
-                        cpcen = row['CODIGO_POSTAL']
-                        if not validations.isValidPostalCode(cpcen):
-                            errors.append('El código postal "' + cpcen + '" del centro: ' + dencen + ' es inválido.')
-                            continue
-                    
+              
                     #Phone number error detection
                     tel = ''
                     if 'TELEFONO' in row:
                         tel = row['TELEFONO']  
                         if not validations.isValidPhoneNum(tel):  
                             errors.append('El número de teléfono "' + tel + '" del centro: ' + dencen + ' es inválido.')
+                            continue
 
                     # Detect address errors
                     direc = None
@@ -55,6 +61,10 @@ class CSVExtractor:
                         direccion = f"{row['TIPO_VIA']} {row['DIRECCION']} {row['NUMERO']}"
                         if not validations.isValidString(direc):
                             errors.append('La dirección "' + direc + '" del centro: ' + dencen + ' es inválida.')
+                            continue
+                    else:
+                        errors.append('La dirección no existe.')
+                        continue
 
                     data_model = DataModel(
                         nombre=dencen,
