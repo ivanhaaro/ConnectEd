@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 from models.data_model import DataModel
 from extractors.validations import Validations
+import re
 
 class XMLExtractor:
     def extract_data(self, file_path):
@@ -20,10 +21,27 @@ class XMLExtractor:
                 row_data[element.tag] = element.text
 
             # Crear un objeto DataModel a partir de los datos de la fila
-            if 'codi_postal' in row_data & 'nom_municipi' in row_data :
+            if 'codi_postal' in row_data and 'nom_municipi' in row_data :
+                codP = row_data.get('codi_postal')
+                codP = codP[:2]
+                if codP == '08':
+                     provincia = 'Barcelona'
+                elif codP == '17':
+                     provincia = 'Girona'
+                elif codP == '25':
+                     provincia = 'Lleida'
+                elif codP == '43':
+                     provincia = 'Tarragona'
+                else:
+                     errors.append('La provincia especificada no es válida')
+                     continue
+                
                 localidad = {'codigo': '', 'nombre': row_data.get('nom_municipi')}
                 provincia = {
-                    'codigo': row_data.get('codi_postal'), 'nombre': row_data.get('codi_postal')}
+                    'codigo': codP, 'nombre': provincia}
+            else:
+                 errors.append('El codigo postal o nombre municipio no esta especificado')
+                 continue
             
             if 'nom_naturalesa' in row_data:
                 tipo = row_data.get('nom_naturalesa')
@@ -31,19 +49,38 @@ class XMLExtractor:
                     tipo = 'Privado'
                 elif tipo == 'Públic':
                     tipo = 'Público'
+                else:
+                     errors.append('El tipo especificado no es correcto')
+                     continue
 
             # Detect name errors
-            nombre = None
             if 'denominaci_completa' in row_data:
                 nombre = row_data.get('denominaci_completa')
                 if not validations.isValidString(nombre):
                     errors.append('El nombre del centro "' + nombre + '" es inválido.')
-            # Detect LONG AND LAT errors
-            if 'coordenades_geo_x' in row_data & 'coordenades_geo_y' in row_data :
-                    lon = row_data.get('coordenades_geo_x'),
-                    lat = row_data.get('coordenades_geo_y'),
-            else:
                     continue
+            else:
+                 errors.append('No esta especificado el nombre del centro')
+                 continue
+
+            # Detect LONG AND LAT errors
+            if 'coordenades_geo_x' in row_data and 'coordenades_geo_y' in row_data :
+                    lon = row_data.get('coordenades_geo_x')
+                    lat = row_data.get('coordenades_geo_y')
+            else:
+                    if 'georefer_ncia' in row_data:
+                         cadena = re.search(r'\((.*?)\)', row_data.get('georefer_ncia'))
+                         if cadena:
+                              numeros = cadena.group(1)
+                              numeros = numeros.split()
+                              lat = numeros[1]
+                              lon = numeros[0]
+                         else:
+                              errors.append('La latitud o la longitud no está correctamente espeificada')
+                              continue
+                    else: 
+                        errors.append('La latitud o la longitud no está correctamente espeificada')
+                        continue
             
             # Detect address errors
             direccion = None
@@ -57,7 +94,10 @@ class XMLExtractor:
             if 'codi_postal' in row_data:
                 cod = row_data.get('codi_postal')
                 if not validations.isValidPostalCode(cod):
-                    errors.append('El código postal "' + cod + '" del centro: ' + cod + ' es inválido.')
+                    errors.append('El código postal "' + cod + '" del centro: ' + nombre + ' es inválido.')
+                    continue
+            else:
+                 continue
 
 
             data_model = DataModel(
