@@ -58,7 +58,7 @@ class CSVExtractor:
                     # Detect address errors
                     direc = None
                     if 'TIPO_VIA' in row and 'DIRECCION' in row and 'NUMERO' in row:
-                        direccion = f"{row['TIPO_VIA']} {row['DIRECCION']} {row['NUMERO']}"
+                        direc = f"{row['TIPO_VIA']} {row['DIRECCION']} {row['NUMERO']}"
                         if not validations.isValidString(direc):
                             errors.append('La dirección "' + direc + '" del centro: ' + dencen + ' es inválida.')
                             continue
