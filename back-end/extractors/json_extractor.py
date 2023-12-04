@@ -23,7 +23,7 @@ class JSONExtractor:
                 # Transform titularidad into tipo
                 titularidad = item['titularidad']
                 if titularidad == 'P':
-                    titularidad = 'Público'
+                    titularidad = 'Publico'
                 elif titularidad == 'N':
                     titularidad = 'Privado'
                 elif titularidad == 'C':
@@ -82,7 +82,7 @@ class JSONExtractor:
                         errors.append('La localidad "' + loccen + '" del centro: ' + dencen + ' es inválida.')
                         continue
                     else:
-                        localidad = {'codigo': item['cpcen'], 'nombre': item['loccen']}
+                        localidad = {'codigo': item['cpcen'], 'nombre': loccen}
 
                 provincia = {'codigo': '30', 'nombre': 'Murcia'}   
 
