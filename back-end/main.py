@@ -15,15 +15,15 @@ def main():
     xml_extractor = XMLExtractor()
 
     # Extraer los datos de los archivos
-    #data_list, errors = json_extractor.extract_data(json_file_path)
+    data_list, errors = json_extractor.extract_data(json_file_path)
 
-    data_list, errors = csv_extractor.extract_data(csv_file_path)
-    # data_list.extend(data_listCSV)
-    # errors.extend(errorsCSV)
+    data_listCSV, errorsCSV = csv_extractor.extract_data(csv_file_path)
+    data_list.extend(data_listCSV)
+    errors.extend(errorsCSV)
 
-    #data_listXML, errorsXML = xml_extractor.extract_data(xml_file_path)
-    # data_list.extend(data_listXML)
-    # errors.extend(errorsXML)
+    data_listXML, errorsXML = xml_extractor.extract_data(xml_file_path)
+    data_list.extend(data_listXML)
+    errors.extend(errorsXML)
 
     # Imprimir los datos extraídos
     for data in data_list:
@@ -40,8 +40,8 @@ def main():
         print()
     
 
-    # for error in errors:
-    #     print(error)
+    for error in errors:
+        print(error)
 
     #Insert data into database
     db = DBConnector("database")
