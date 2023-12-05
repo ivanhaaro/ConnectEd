@@ -30,7 +30,9 @@ class CSVExtractor:
                     #Postal code error detection
                     if 'CODIGO_POSTAL' in row:
                         cpcen = row['CODIGO_POSTAL']
-                        if not validations.isValidPostalCode(cpcen):
+                        if validations.isAlicante(cpcen):
+                            cpcen = '0' + cpcen
+                        elif not validations.isValidPostalCode(cpcen):
                             errors.append('El código postal "' + cpcen + '" del centro: ' + dencen + ' es inválido.')
                             continue
                         if 'LOCALIDAD' in row:
