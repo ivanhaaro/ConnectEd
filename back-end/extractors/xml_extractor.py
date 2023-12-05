@@ -20,6 +20,15 @@ class XMLExtractor:
                 # Utilizar el nombre del elemento como clave y su texto como valor
                 row_data[element.tag] = element.text
 
+            # Detect name errors
+            if 'denominaci_completa' in row_data:
+                nombre = row_data.get('denominaci_completa')
+                if not validations.isValidString(nombre):
+                    errors.append('El nombre del centro "' + nombre + '" es inválido.')
+                    continue
+            else:
+                 errors.append('No esta especificado el nombre del centro')
+                 continue
             # Detect cod post errors
             cod = ''
             if 'codi_postal' in row_data:
@@ -28,6 +37,7 @@ class XMLExtractor:
                     errors.append('El código postal "' + cod + '" del centro: ' + nombre + ' es inválido.')
                     continue
             else:
+                 errors.append('El código postal del centro: ' + nombre + ' no está')
                  continue
             
             # Crear un objeto DataModel a partir de los datos de la fila
@@ -63,15 +73,7 @@ class XMLExtractor:
                      errors.append('El tipo especificado no es correcto')
                      continue
 
-            # Detect name errors
-            if 'denominaci_completa' in row_data:
-                nombre = row_data.get('denominaci_completa')
-                if not validations.isValidString(nombre):
-                    errors.append('El nombre del centro "' + nombre + '" es inválido.')
-                    continue
-            else:
-                 errors.append('No esta especificado el nombre del centro')
-                 continue
+            
 
             # Detect LONG AND LAT errors
             if 'coordenades_geo_x' in row_data and 'coordenades_geo_y' in row_data :
