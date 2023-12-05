@@ -18,7 +18,8 @@ class JSONExtractor:
                 # Detect name errors
                 dencen = item['dencen']
                 if not validations.isValidString(dencen):
-                    errors.append('El nombre del centro "' + dencen + '" es inválido.')
+                    errors.append('ERROR: El nombre del centro "' + dencen + '" es inválido.')
+                    continue
 
                 # Transform titularidad into tipo
                 titularidad = item['titularidad']
@@ -29,13 +30,13 @@ class JSONExtractor:
                 elif titularidad == 'C':
                     titularidad = 'Concertado'
                 else:
-                    errors.append('El tipo "' + titularidad + '" del centro: ' + domcen + ' es inválido')
+                    errors.append('ERROR: El tipo "' + titularidad + '" del centro: ' + domcen + ' es inválido')
                     continue
 
                 # Detect direccion errors
                 domcen = item['domcen']
                 if not validations.isValidString(domcen):
-                    errors.append('La dirección "' + domcen + '" del centro: ' + domcen + ' es inválida.')
+                    errors.append('WARNING: La dirección "' + domcen + '" del centro: ' + domcen + ' es inválida.')
 
                 # Latitude and Longitude error detection
                 if 'geo-referencia' in item:
@@ -44,15 +45,16 @@ class JSONExtractor:
                     if 'lon' in referencia:
                         lon = item['geo-referencia']['lon']
                         if not validations.isValidString(str(lon)):
-                            errors.append('La longitud "' + lon + '" del centro: ' + dencen + ' es inválida.') 
+                            errors.append('ERROR: La longitud "' + lon + '" del centro: ' + dencen + ' es inválida.') 
+                            continue
                     
                     if 'lat' in referencia:
                         lat = item['geo-referencia']['lat']
                         if not validations.isValidString(str(lat)):
-                            errors.append('La latitud "' + lat + '" del centro: ' + dencen + ' es inválida.')
-
+                            errors.append('ERROR: La latitud "' + lat + '" del centro: ' + dencen + ' es inválida.')
+                            continue
                 else:
-                    errors.append(errors.append('La latitud y longitud del centro: ' + dencen + ' son inválidas.'))
+                    errors.append('ERROR: La latitud y longitud del centro: ' + dencen + ' son inválidas.')
                     continue
 
                 #Phone number error detection
@@ -60,14 +62,14 @@ class JSONExtractor:
                 if 'telcen' in item:
                     tel = item['telcen'].strip()  
                     if not validations.isValidPhoneNum(tel):  
-                        errors.append('El número de teléfono "' + tel + '" del centro: ' + dencen + ' es inválido.')
+                        errors.append('WARNING: El número de teléfono "' + tel + '" del centro: ' + dencen + ' es inválido.')
                         tel = ''    
 
                 #Postal code error detection
                 if 'cpcen' in item:
                     cpcen = item['cpcen']
                     if not validations.isValidPostalCode(cpcen):
-                        errors.append('El código postal "' + cpcen + '" del centro: ' + dencen + ' es inválido.')
+                        errors.append('ERROR: El código postal "' + cpcen + '" del centro: ' + dencen + ' es inválido.')
                         continue
 
                 #Description error detection
@@ -80,7 +82,7 @@ class JSONExtractor:
                 if 'loccen' in item:
                     loccen = item['loccen']
                     if not validations.isValidString(loccen):
-                        errors.append('La localidad "' + loccen + '" del centro: ' + dencen + ' es inválida.')
+                        errors.append('ERROR: La localidad "' + loccen + '" del centro: ' + dencen + ' es inválida.')
                         continue
                     else:
                         localidad = {'codigo': item['cpcen'], 'nombre': loccen}

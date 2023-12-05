@@ -1,3 +1,3 @@
-El código postal "" del centro: VIRGEN DEL ORO es inválido.
-El número de teléfono "" del centro: D.TERRITORIAL DE EDUCACIÓN, FORMACIÓN Y TRABAJO - ALICANTE es inválido.
-El número de teléfono "" del centro: ALICER es inválido.
+ERROR: El cï¿½digo postal "" del centro: VIRGEN DEL ORO es invï¿½lido.
+WARNING: El nï¿½mero de telï¿½fono "" del centro: D.TERRITORIAL DE EDUCACIï¿½N, FORMACIï¿½N Y TRABAJO - ALICANTE es invï¿½lido.
+WARNING: El nï¿½mero de telï¿½fono "" del centro: ALICER es invï¿½lido.

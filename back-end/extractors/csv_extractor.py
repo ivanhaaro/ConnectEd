@@ -17,14 +17,7 @@ class CSVExtractor:
                     # Detect name errors
                     dencen = row['DENOMINACION']
                     if not validations.isValidString(dencen):
-                        errors.append('El nombre del centro "' + dencen + '" es inválido.')
-                        continue
-
-
-                    # Detect name errors
-                    dencen = row['DENOMINACION']
-                    if not validations.isValidString(dencen):
-                        errors.append('El nombre del centro "' + dencen + '" es inválido.')
+                        errors.append('ERROR: El nombre del centro "' + dencen + '" es inválido.')
                         continue
 
                     #Postal code error detection
@@ -33,14 +26,14 @@ class CSVExtractor:
                         if validations.isAlicante(cpcen):
                             cpcen = '0' + cpcen
                         elif not validations.isValidPostalCode(cpcen):
-                            errors.append('El código postal "' + cpcen + '" del centro: ' + dencen + ' es inválido.')
+                            errors.append('ERROR: El código postal "' + cpcen + '" del centro: ' + dencen + ' es inválido.')
                             continue
                         if 'LOCALIDAD' in row:
                             localidad = {'codigo': cpcen, 'nombre': row['LOCALIDAD']}
                         if 'PROVINCIA' in row:
                             provincia = {'codigo': cpcen[:2], 'nombre': row['PROVINCIA']}
                     else:
-                        errors.append('El código postal no existe')
+                        errors.append('ERROR: El código postal no existe')
                         continue
 
                     tipoRegimen=row['REGIMEN']
@@ -53,7 +46,7 @@ class CSVExtractor:
                     elif tipoRegimen == 'OTROS':
                         tipoRegimen = 'Otros'
                     else:
-                        errors.append(f'El tipo {tipoRegimen} es inválido')
+                        errors.append(f'ERROR: El tipo {tipoRegimen} es inválido')
                         continue
               
                     #Phone number error detection
@@ -61,18 +54,18 @@ class CSVExtractor:
                     if 'TELEFONO' in row:
                         tel = row['TELEFONO']  
                         if not validations.isValidPhoneNum(tel):  
-                            errors.append('El número de teléfono "' + tel + '" del centro: ' + dencen + ' es inválido.')
-                            continue
+                            errors.append('WARNING: El número de teléfono "' + tel + '" del centro: ' + dencen + ' es inválido.')
+                            tel = ''
 
                     # Detect address errors
                     direc = None
                     if 'TIPO_VIA' in row and 'DIRECCION' in row and 'NUMERO' in row:
                         direc = f"{row['TIPO_VIA']} {row['DIRECCION']} {row['NUMERO']}"
                         if not validations.isValidString(direc):
-                            errors.append('La dirección "' + direc + '" del centro: ' + dencen + ' es inválida.')
+                            errors.append('ERROR: La dirección "' + direc + '" del centro: ' + dencen + ' es inválida.')
                             continue
                     else:
-                        errors.append('La dirección no existe.')
+                        errors.append('ERROR: La dirección no existe.')
                         continue
 
                     data_model = DataModel(
