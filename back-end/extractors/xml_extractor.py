@@ -97,7 +97,7 @@ class XMLExtractor:
             if 'adre_a' in row_data:
                 direccion = row_data.get('adre_a')
                 if not validations.isValidString(direccion):
-                    errors.append('La dirección "' + direccion + '" del centro: ' + nombre + ' es inválida.')
+                    errors.append('WARNING: La dirección "' + direccion + '" del centro: ' + nombre + ' es inválida.')
 
             
 
