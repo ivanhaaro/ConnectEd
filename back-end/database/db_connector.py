@@ -30,7 +30,7 @@ class DBConnector:
                 nombre VARCHAR(80) NOT NULL,
                 tipo TEXT CHECK (tipo IN ("Publico", "Concertado", "Privado", "Otros")) NOT NULL,
                 direccion VARCHAR(100) NOT NULL,
-                codigo_postal INT NOT NULL,
+                codigo_postal VARCHAR(5) NOT NULL,
                 longitud DOUBLE NOT NULL,
                 latitud DOUBLE NOT NULL,
                 telefono INT,
