@@ -36,6 +36,7 @@ class DBConnector:
                 telefono INT,
                 descripcion VARCHAR(120),
                 en_localidad INT NOT NULL,
+                UNIQUE(longitud, latitud),
                 FOREIGN KEY (en_localidad) REFERENCES Localidad(codigo)
             )
         """)
@@ -70,7 +71,7 @@ class DBConnector:
 
             # Insert into Centro_Educativo
             cursor.execute("""
-                INSERT INTO Centro_Educativo (nombre, tipo, direccion, 
+                INSERT OR IGNORE INTO Centro_Educativo (nombre, tipo, direccion, 
                         codigo_postal, longitud, latitud, telefono, descripcion, en_localidad)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
