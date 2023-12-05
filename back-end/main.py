@@ -40,8 +40,10 @@ def main():
         print()
     
 
-    for error in errors:
-        print(error)
+    with open('errors.txt', 'w') as file:
+        for error in errors:
+            print(error, file=file)
+
 
     #Insert data into database
     db = DBConnector("database")
