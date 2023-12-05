@@ -36,9 +36,9 @@ class CSVExtractor:
                             errors.append('El código postal "' + cpcen + '" del centro: ' + dencen + ' es inválido.')
                             continue
                         if 'LOCALIDAD' in row:
-                            localidad = {'codigo': row['CODIGO_POSTAL'], 'nombre': row['LOCALIDAD']}
+                            localidad = {'codigo': cpcen, 'nombre': row['LOCALIDAD']}
                         if 'PROVINCIA' in row:
-                            provincia = {'codigo': row['CODIGO_POSTAL'][:2], 'nombre': row['PROVINCIA']}
+                            provincia = {'codigo': cpcen[:2], 'nombre': row['PROVINCIA']}
                     else:
                         errors.append('El código postal no existe')
                         continue
