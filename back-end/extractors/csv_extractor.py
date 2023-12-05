@@ -85,7 +85,7 @@ class CSVExtractor:
                         localidad=localidad,
                         provincia=provincia
                     )
-                    data_model.longitud, data_model.latitud = scraper.getlatlong(data_model.direccion)
+                    data_model.latitud, data_model.longitud = scraper.getlatlong(data_model.direccion)
                     print(f"Longitud: {data_model.longitud} Latitud= {data_model.latitud}")
                     data.append(data_model)
                 except Exception as e:
