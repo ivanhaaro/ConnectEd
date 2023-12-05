@@ -19,7 +19,9 @@ class XMLExtractor:
             for element in row:
                 # Utilizar el nombre del elemento como clave y su texto como valor
                 row_data[element.tag] = element.text
-
+            #
+            if 'row' in row_data:
+                 continue
             # Detect name errors
             if 'denominaci_completa' in row_data:
                 nombre = row_data.get('denominaci_completa')
