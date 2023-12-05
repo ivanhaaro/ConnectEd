@@ -28,6 +28,7 @@ class XMLExtractor:
                     errors.append('El código postal "' + cod + '" del centro: ' + nombre + ' es inválido.')
                     continue
             else:
+                 errors.append('El código postal del centro: ' + nombre + ' no está')
                  continue
             
             # Crear un objeto DataModel a partir de los datos de la fila
