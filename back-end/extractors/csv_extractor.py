@@ -8,7 +8,7 @@ class CSVExtractor:
         data = []
         errors = []
         validations = Validations()
-        geo_service = GoogleMapsGeocoder('AIzaSyCWPI6ymeFvyiHomrY5HQlyNicIYnoTJ14')
+        geo_service = GoogleMapsGeocoder('apiKey')
         with open(file_path, 'r', encoding='utf-8') as csv_file:
             csv_reader = csv.DictReader(csv_file, delimiter=';')  # Especifica el delimitador utilizado en tu CSV
             for row in csv_reader:
