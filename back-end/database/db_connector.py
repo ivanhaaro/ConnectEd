@@ -82,4 +82,16 @@ class DBConnector:
 
         cursor.close()
 
+        def search_by(localidad, codigo_postal, provincia, tipo):
+            cursor = self.conn.cursor()
+
+            cursor.execute(f"""
+                            SELECT * FROM Centro_Educativo WHERE codigo_postal = ?
+                            and localidad = ?
+                        """, (
+                item.nombre, item.tipo, item.direccion, item.codigo_postal,
+                item.longitud, item.latitud, item.telefono, item.descripcion, localidad_id
+            ))
+            self.conn.commit()
+
 

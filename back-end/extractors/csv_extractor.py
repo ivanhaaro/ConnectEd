@@ -1,14 +1,14 @@
 import csv
-from scraper.scraper import CoordinateScraper
 from models.data_model import DataModel
 from extractors.validations import Validations
+from geoapiservice.google_maps_service import GoogleMapsGeocoder
 
 class CSVExtractor:
     def extract_data(self, file_path):
         data = []
         errors = []
         validations = Validations()
-        scraper = CoordinateScraper()
+        geo_service = GoogleMapsGeocoder('AIzaSyCWPI6ymeFvyiHomrY5HQlyNicIYnoTJ14')
         with open(file_path, 'r', encoding='utf-8') as csv_file:
             csv_reader = csv.DictReader(csv_file, delimiter=';')  # Especifica el delimitador utilizado en tu CSV
             for row in csv_reader:
@@ -80,7 +80,7 @@ class CSVExtractor:
                         localidad=localidad,
                         provincia=provincia
                     )
-                    data_model.latitud, data_model.longitud = scraper.getlatlong(data_model.direccion)
+                    data_model.latitud, data_model.longitud = geo_service.getlatlong(data_model.direccion)
                     print(f"Longitud: {data_model.longitud} Latitud= {data_model.latitud}")
                     data.append(data_model)
                 except Exception as e:
