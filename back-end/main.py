@@ -1,4 +1,4 @@
-from flask import Flask, request, Response
+from flask import Flask, request, Response, jsonify
 
 from extractors.xml_extractor import XMLExtractor
 from extractors.csv_extractor import CSVExtractor
@@ -89,7 +89,7 @@ def load_all_database():
     db.insert_data(data_list)
 
 @app.route('/getEducativeCenters', methods=['GET'])
-def get_educative_centers():
+def get_eduatcive_centers():
     localidad = request.args.get('localidad')
     codigo_postal = request.args.get('codigo_postal')
     provincia = request.args.get('provincia')
@@ -98,7 +98,9 @@ def get_educative_centers():
     db = DBConnector("../database")
     educative_centers = db.search_by(localidad, codigo_postal, provincia, tipo)
 
-    return Response(educative_centers, 202)
+    educative_centers_dicts = [center.to_dict() for center in educative_centers]
+
+    return jsonify(educative_centers_dicts)
 
 if __name__ == "__main__":
     app.run(debug=True)
