@@ -1,14 +1,14 @@
 import csv
-from scraper.scraper import CoordinateScraper
 from models.data_model import DataModel
 from extractors.validations import Validations
+from geoapiservice.google_maps_service import GoogleMapsGeocoder
 
 class CSVExtractor:
     def extract_data(self, file_path):
         data = []
         errors = []
         validations = Validations()
-        scraper = CoordinateScraper()
+        geo_service = GoogleMapsGeocoder('introduceApiKeyHere')
         with open(file_path, 'r', encoding='utf-8') as csv_file:
             csv_reader = csv.DictReader(csv_file, delimiter=';')  # Especifica el delimitador utilizado en tu CSV
             for row in csv_reader:
@@ -17,28 +17,23 @@ class CSVExtractor:
                     # Detect name errors
                     dencen = row['DENOMINACION']
                     if not validations.isValidString(dencen):
-                        errors.append('El nombre del centro "' + dencen + '" es inválido.')
-                        continue
-
-
-                    # Detect name errors
-                    dencen = row['DENOMINACION']
-                    if not validations.isValidString(dencen):
-                        errors.append('El nombre del centro "' + dencen + '" es inválido.')
+                        errors.append('ERROR: El nombre del centro "' + dencen + '" es inválido.')
                         continue
 
                     #Postal code error detection
                     if 'CODIGO_POSTAL' in row:
                         cpcen = row['CODIGO_POSTAL']
-                        if not validations.isValidPostalCode(cpcen):
-                            errors.append('El código postal "' + cpcen + '" del centro: ' + dencen + ' es inválido.')
+                        if validations.isAlicante(cpcen):
+                            cpcen = '0' + cpcen
+                        elif not validations.isValidPostalCode(cpcen):
+                            errors.append('ERROR: El código postal "' + cpcen + '" del centro: ' + dencen + ' es inválido.')
                             continue
                         if 'LOCALIDAD' in row:
-                            localidad = {'codigo': row['CODIGO_POSTAL'], 'nombre': row['LOCALIDAD']}
+                            localidad = {'codigo': cpcen, 'nombre': row['LOCALIDAD']}
                         if 'PROVINCIA' in row:
-                            provincia = {'codigo': row['CODIGO_POSTAL'][:2], 'nombre': row['PROVINCIA']}
+                            provincia = {'codigo': cpcen[:2], 'nombre': row['PROVINCIA']}
                     else:
-                        errors.append('El código postal no existe')
+                        errors.append('ERROR: El código postal no existe')
                         continue
 
                     tipoRegimen=row['REGIMEN']
@@ -51,7 +46,7 @@ class CSVExtractor:
                     elif tipoRegimen == 'OTROS':
                         tipoRegimen = 'Otros'
                     else:
-                        errors.append(f'El tipo {tipoRegimen} es inválido')
+                        errors.append(f'ERROR: El tipo {tipoRegimen} es inválido')
                         continue
               
                     #Phone number error detection
@@ -59,18 +54,18 @@ class CSVExtractor:
                     if 'TELEFONO' in row:
                         tel = row['TELEFONO']  
                         if not validations.isValidPhoneNum(tel):  
-                            errors.append('El número de teléfono "' + tel + '" del centro: ' + dencen + ' es inválido.')
-                            continue
+                            errors.append('WARNING: El número de teléfono "' + tel + '" del centro: ' + dencen + ' es inválido.')
+                            tel = ''
 
                     # Detect address errors
                     direc = None
                     if 'TIPO_VIA' in row and 'DIRECCION' in row and 'NUMERO' in row:
                         direc = f"{row['TIPO_VIA']} {row['DIRECCION']} {row['NUMERO']}"
                         if not validations.isValidString(direc):
-                            errors.append('La dirección "' + direc + '" del centro: ' + dencen + ' es inválida.')
+                            errors.append('ERROR: La dirección "' + direc + '" del centro: ' + dencen + ' es inválida.')
                             continue
                     else:
-                        errors.append('La dirección no existe.')
+                        errors.append('ERROR: La dirección no existe.')
                         continue
 
                     data_model = DataModel(
@@ -85,7 +80,7 @@ class CSVExtractor:
                         localidad=localidad,
                         provincia=provincia
                     )
-                    data_model.longitud, data_model.latitud = scraper.getlatlong(data_model.direccion)
+                    data_model.latitud, data_model.longitud = geo_service.getlatlong(data_model.direccion)
                     print(f"Longitud: {data_model.longitud} Latitud= {data_model.latitud}")
                     data.append(data_model)
                 except Exception as e:
