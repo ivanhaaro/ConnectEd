@@ -89,7 +89,7 @@ class DBConnector:
 
         # Base query
         query = """
-            SELECT ce.*, pr.nombre as provincia_nombre FROM Centro_Educativo ce
+            SELECT ce.*, pr.nombre as provincia_nombre, lo.nombre as localidad_nombre FROM Centro_Educativo ce
             INNER JOIN Localidad lo ON ce.en_localidad = lo.codigo
             INNER JOIN Provincia pr ON lo.en_provincia = pr.codigo
             WHERE
@@ -100,14 +100,16 @@ class DBConnector:
         # Check each parameter and add conditions accordingly
         if provincia is not None:
             conditions.append(f"pr.nombre = '{provincia}'")
-        elif localidad is not None:
+
+        if localidad is not None:
             # Select the province name as a subquery
             conditions.append(f"lo.nombre = '{localidad}'")
-            query = query.replace("pr.nombre as provincia_nombre",
-                                  "(SELECT nombre FROM Provincia WHERE codigo = lo.en_provincia) as provincia_nombre")
+            # query = query.replace("pr.nombre as provincia_nombre",
+            #                       "(SELECT nombre FROM Provincia WHERE codigo = lo.en_provincia) as provincia_nombre")
 
         if codigo_postal is not None:
             conditions.append(f"ce.codigo_postal = '{codigo_postal}'")
+            
         if tipo is not None:
             conditions.append(f"ce.tipo = '{tipo}'")
 
@@ -125,7 +127,8 @@ class DBConnector:
 
         for centroEducativo in cursor.fetchall():
             # Use the province name from the query result if provincia is None
-            provincia_name = centroEducativo[-1] if provincia is None else provincia
+            provincia_name = centroEducativo[-2] if provincia is None else provincia
+            localidad_name = centroEducativo[-1] if localidad is None else localidad
 
             educative_centers.append(
                 DataModel(
@@ -137,7 +140,7 @@ class DBConnector:
                     latitud=centroEducativo[6],
                     telefono=centroEducativo[7],
                     descripcion=centroEducativo[8],
-                    localidad=localidad,
+                    localidad=localidad_name,
                     provincia=provincia_name,
                 )
             )

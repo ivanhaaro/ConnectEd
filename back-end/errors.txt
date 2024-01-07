@@ -1,2 +1,1 @@
-WARNING: El número de teléfono "" del centro: D.TERRITORIAL DE EDUCACIÓN, FORMACIÓN Y TRABAJO - ALICANTE es inválido.
-WARNING: El número de teléfono "" del centro: ALICER es inválido.
+ERROR: El cÃ³digo postal "" del centro: VIRGEN DEL ORO es invÃ¡lido.
