@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, jsonify
+from fastapi import FastAPI, HTTPException, Query
 
 from extractors.xml_extractor import XMLExtractor
 from extractors.csv_extractor import CSVExtractor
@@ -6,12 +6,10 @@ from extractors.json_extractor import JSONExtractor
 from database.db_connector import DBConnector
 from models.data_model import DataModel
 
-app = Flask(__name__)
+app = FastAPI()
 
-
-@app.route('/loadDatabaseData', methods=['GET'])
-def load_database_data():
-    comunidad = request.args.get('comunidad')
+@app.get('/loadDataBaseData')
+def load_database_data(comunidad: str = Query(..., title="Comunidad", description="Nombre de la comunidad")):
 
     if comunidad == 'murcia':
         json_extractor = JSONExtractor()
@@ -24,9 +22,9 @@ def load_database_data():
         data_list, errors = xml_extractor.extract_data('CAT.xml')
     elif comunidad == 'todas':
         load_all_database()
-        return Response("Datos cargados correctamente para " + comunidad, 200)
+        return {"message": f"Datos cargados correctamente para {comunidad}"}
     else:
-        return Response("Comunidad invalida", 500)
+        raise HTTPException(status_code=500, detail="Comunidad invalida")
 
     with open('errors.txt', 'w') as file:
         for error in errors:
@@ -34,7 +32,7 @@ def load_database_data():
 
     load_database(data_list)
 
-    return Response("Datos cargados correctamente para " + comunidad, 200)
+    return {"message": f"Datos cargados correctamente para {comunidad}"}
 
 
 def load_database(data_list):
@@ -88,19 +86,20 @@ def load_all_database():
     db.create_table()
     db.insert_data(data_list)
 
-@app.route('/getEducativeCenters', methods=['GET'])
-def get_eduatcive_centers():
-    localidad = request.args.get('localidad')
-    codigo_postal = request.args.get('codigo_postal')
-    provincia = request.args.get('provincia')
-    tipo = request.args.get('tipo')
+@app.get('/getEducativeCenters')
+def get_eduatcive_centers(localidad: str = Query(None),
+                            codigo_postal: str = Query(None),
+                            provincia: str = Query(None),
+                            tipo: str = Query(None)):
 
-    db = DBConnector("../database")
+    db = DBConnector("../database") 
+
     educative_centers = db.search_by(localidad, codigo_postal, provincia, tipo)
 
     educative_centers_dicts = [center.to_dict() for center in educative_centers]
 
-    return jsonify(educative_centers_dicts)
+    return educative_centers_dicts
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8000)
