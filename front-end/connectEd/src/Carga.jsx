@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import "./Carga.css";
 
 // Simulación de datos de la base de datos
 const datosDeLaBD = {
-  fuente1: "Información de la fuente 1",
-  fuente2: "Información de la fuente 2",
-  fuente3: "Información de la fuente 3",
+  Valencia: "Información de la Comunidad Valenciana",
+  Murcia: "Información de Murcia",
+  Cataluña: "Información de Cataluña",
 };
 
 const App = () => {
@@ -57,10 +58,11 @@ const App = () => {
       {/* Título */}
       <h1>{titulo}</h1>
 
+      <h2>Selección de Datos</h2>
+
       {/* Selector de fuentes */}
-      <div>
+      <div class="contenedor-izquierda">
         <label>
-          Seleccionar todas
           <input
             type="checkbox"
             checked={
@@ -68,6 +70,7 @@ const App = () => {
             }
             onChange={handleSelectAll}
           />
+          Seleccionar todas
         </label>
         {Object.keys(datosDeLaBD).map((fuente) => (
           <div key={fuente}>
