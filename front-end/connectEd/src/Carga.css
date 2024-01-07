@@ -32,16 +32,24 @@ h1 {
 
 /* Subtítulos */
 h2 {
+  text-align: left;
   color: #3d7aa2;
 }
 
 .contenedor-izquierda {
   text-align: left;
+  margin-left: 35%;
 }
 
 /* Selector de fuentes */
 div > div {
   margin-top: 20px;
+}
+
+.fila {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas de igual tamaño */
+  gap: 10px; /* Espacio entre elementos */
 }
 
 label {

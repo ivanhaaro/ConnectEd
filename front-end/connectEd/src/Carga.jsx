@@ -60,7 +60,7 @@ const Carga = () => {
       {/* Título */}
       <h1>{titulo}</h1>
 
-      <h2>Selección de Datos</h2>
+      <h2>Selección de Datos:</h2>
 
       {/* Selector de fuentes */}
       <div className="cuadricula">
@@ -75,28 +75,41 @@ const Carga = () => {
             />
             Seleccionar todas
           </label>
-          {Object.keys(datosDeLaBD).map((fuente) => (
-            <div key={fuente}>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={fuentesSeleccionadas.includes(fuente)}
-                  onChange={() => handleCheckboxChange(fuente)}
-                />
-                {fuente}
-              </label>
-            </div>
-          ))}
         </div>
+        {Object.keys(datosDeLaBD).map((fuente) => (
+          <div key={fuente} class="contenedor-izquierda">
+            <label>
+              <input
+                type="checkbox"
+                checked={fuentesSeleccionadas.includes(fuente)}
+                onChange={() => handleCheckboxChange(fuente)}
+              />
+              {fuente}
+            </label>
+          </div>
+        ))}
+      </div>
+      <div className="fila">
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Cancelar
+        </Button>
+
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Cargar
+        </Button>
       </div>
 
-      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-        Cancelar
-      </Button>
-
-      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-        Cargar
-      </Button>
+      <h2>Resultados de la Carga:</h2>
 
       {/* Cuadro de texto con información */}
       <div>
