@@ -4,6 +4,8 @@ import MapDisplay from "./MapDisplay";
 import "./App.css";
 import Navbar from "./NavBar";
 import Container from "@mui/material/Container";
+import Carga from "./Carga";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   const [centrosEducativos, setCentrosEducativos] = React.useState([]);
@@ -26,12 +28,28 @@ function App() {
   };
 
   return (
-    <Container maxWidth="false">
+    <Router>
       <Navbar />
-      <SearchForm onSubmit={handleSearchSubmit} />
-      <MapDisplay centrosEducativos={centrosEducativos} />
-    </Container>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <HomeSearchForm
+              onSubmit={handleSearchSubmit}
+              centrosEducativos={centrosEducativos}
+            />
+          }
+        />
+        <Route path="/carga" element={<Carga />} />
+      </Routes>
+    </Router>
   );
 }
+const HomeSearchForm = ({ onSubmit, centrosEducativos }) => (
+  <>
+    <SearchForm onSubmit={onSubmit} />
+    <MapDisplay centrosEducativos={centrosEducativos} />
+  </>
+);
 
 export default App;

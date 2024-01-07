@@ -8,7 +8,7 @@ const datosDeLaBD = {
   Cataluña: "Información de Cataluña",
 };
 
-const App = () => {
+const Carga = () => {
   // Estado para el título
   const [titulo, setTitulo] = useState("Carga del almacén de datos");
 
@@ -94,4 +94,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Carga;
