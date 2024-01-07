@@ -7,7 +7,7 @@ const datosDeLaBD = {
   fuente3: "Información de la fuente 3",
 };
 
-const App = () => {
+const Carga = () => {
   // Estado para el título
   const [titulo, setTitulo] = useState("Carga del almacén de datos");
 
@@ -91,4 +91,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Carga;
