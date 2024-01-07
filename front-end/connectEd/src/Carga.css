@@ -64,6 +64,13 @@ textarea {
   background-color: #ecf0f1;
 }
 
+.cuadricula {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas de igual tamaño */
+  grid-template-rows: repeat(2, 1fr); /* Dos filas de igual tamaño */
+  gap: 10px; /* Espacio entre elementos */
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   div {

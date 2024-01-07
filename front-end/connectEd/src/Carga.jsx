@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
 import "./Carga.css";
 
 // Simulación de datos de la base de datos
@@ -61,30 +63,40 @@ const Carga = () => {
       <h2>Selección de Datos</h2>
 
       {/* Selector de fuentes */}
-      <div class="contenedor-izquierda">
-        <label>
-          <input
-            type="checkbox"
-            checked={
-              fuentesSeleccionadas.length === Object.keys(datosDeLaBD).length
-            }
-            onChange={handleSelectAll}
-          />
-          Seleccionar todas
-        </label>
-        {Object.keys(datosDeLaBD).map((fuente) => (
-          <div key={fuente}>
-            <label>
-              <input
-                type="checkbox"
-                checked={fuentesSeleccionadas.includes(fuente)}
-                onChange={() => handleCheckboxChange(fuente)}
-              />
-              {fuente}
-            </label>
-          </div>
-        ))}
+      <div className="cuadricula">
+        <div class="contenedor-izquierda">
+          <label>
+            <input
+              type="checkbox"
+              checked={
+                fuentesSeleccionadas.length === Object.keys(datosDeLaBD).length
+              }
+              onChange={handleSelectAll}
+            />
+            Seleccionar todas
+          </label>
+          {Object.keys(datosDeLaBD).map((fuente) => (
+            <div key={fuente}>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={fuentesSeleccionadas.includes(fuente)}
+                  onChange={() => handleCheckboxChange(fuente)}
+                />
+                {fuente}
+              </label>
+            </div>
+          ))}
+        </div>
       </div>
+
+      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+        Cancelar
+      </Button>
+
+      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+        Cargar
+      </Button>
 
       {/* Cuadro de texto con información */}
       <div>
