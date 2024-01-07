@@ -1,0 +1,48 @@
+/* Estilos generales */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9; /* Fondo más cálido */
+}
+
+/* Contenedor principal */
+div {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #ffffff; /* Blanco más suave */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+h1 {
+  color: #3498db;
+}
+
+/* Selector de fuentes */
+div > div {
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #2ecc71;
+}
+
+input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* Cuadro de texto con información */
+textarea {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #3498db; /* Borde azul */
+  border-radius: 4px;
+  color: #333;
+  background-color: #ecf0f1; /* Fondo más claro */
+}
