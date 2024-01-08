@@ -1,3 +1,0 @@
-ERROR: El c�digo postal "" del centro: VIRGEN DEL ORO es inv�lido.
-WARNING: El n�mero de tel�fono "" del centro: D.TERRITORIAL DE EDUCACI�N, FORMACI�N Y TRABAJO - ALICANTE es inv�lido.
-WARNING: El n�mero de tel�fono "" del centro: ALICER es inv�lido.

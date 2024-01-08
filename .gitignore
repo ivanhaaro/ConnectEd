@@ -1,0 +1,5 @@
+/back-end/venv
+/venv
+*.pyc
+/.idea
+/.vscode

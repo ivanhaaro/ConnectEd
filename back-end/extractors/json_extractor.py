@@ -62,8 +62,8 @@ class JSONExtractor:
                 if 'telcen' in item:
                     tel = item['telcen'].strip()  
                     if not validations.isValidPhoneNum(tel):  
-                        errors.append('WARNING: El número de teléfono "' + tel + '" del centro: ' + dencen + ' es inválido.')
-                        tel = ''    
+                        errors.append('ERROR: El número de teléfono "' + tel + '" del centro: ' + dencen + ' es inválido.')
+                        continue   
 
                 #Postal code error detection
                 if 'cpcen' in item:

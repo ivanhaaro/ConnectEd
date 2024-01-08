@@ -4,25 +4,27 @@ from extractors.xml_extractor import XMLExtractor
 from extractors.csv_extractor import CSVExtractor
 from extractors.json_extractor import JSONExtractor
 from database.db_connector import DBConnector
-from models.data_model import DataModel
 
-app = FastAPI()
+app = FastAPI(title='ConnectEd API', version='0.0.1', description='The API for educative centers at Spain', )
 
 @app.get('/loadDataBaseData')
-def load_database_data(comunidad: str = Query(..., title="Comunidad", description="Nombre de la comunidad")):
+async def load_database_data(comunidad: str):
 
     if comunidad == 'murcia':
         json_extractor = JSONExtractor()
         data_list, errors = json_extractor.extract_data('MUR.json')
+
     elif comunidad == 'comunidad_valenciana':
         csv_extractor = CSVExtractor()
         data_list, errors = csv_extractor.extract_data('CV.csv')
+
     elif comunidad == 'cataluña':
         xml_extractor = XMLExtractor()
         data_list, errors = xml_extractor.extract_data('CAT.xml')
+
     elif comunidad == 'todas':
-        load_all_database()
-        return {"message": f"Datos cargados correctamente para {comunidad}"}
+        data_list, errors = load_all_database()
+    
     else:
         raise HTTPException(status_code=500, detail="Comunidad invalida")
 
@@ -32,7 +34,8 @@ def load_database_data(comunidad: str = Query(..., title="Comunidad", descriptio
 
     load_database(data_list)
 
-    return {"message": f"Datos cargados correctamente para {comunidad}"}
+    return {"message": f"Datos cargados correctamente para {comunidad}",
+            "defectos": errors}
 
 
 def load_database(data_list):
@@ -64,18 +67,18 @@ def load_all_database():
     errors.extend(errorsXML)
 
     # Imprimir los datos extraídos
-    for data in data_list:
-        print(f"Nombre: {data.nombre}")
-        print(f"Tipo: {data.tipo}")
-        print(f"Dirección: {data.direccion}")
-        print(f"Código Postal: {data.codigo_postal}")
-        print(f"Longitud: {data.longitud}")
-        print(f"Latitud: {data.latitud}")
-        print(f"Teléfono: {data.telefono}")
-        print(f"Descripción: {data.descripcion}")
-        print(f"Localidad: {data.localidad['nombre']} (Código: {data.localidad['codigo']})")
-        print(f"Provincia: {data.provincia['nombre']} (Código: {data.provincia['codigo']})")
-        print()
+    # for data in data_list:
+    #     print(f"Nombre: {data.nombre}")
+    #     print(f"Tipo: {data.tipo}")
+    #     print(f"Dirección: {data.direccion}")
+    #     print(f"Código Postal: {data.codigo_postal}")
+    #     print(f"Longitud: {data.longitud}")
+    #     print(f"Latitud: {data.latitud}")
+    #     print(f"Teléfono: {data.telefono}")
+    #     print(f"Descripción: {data.descripcion}")
+    #     print(f"Localidad: {data.localidad['nombre']} (Código: {data.localidad['codigo']})")
+    #     print(f"Provincia: {data.provincia['nombre']} (Código: {data.provincia['codigo']})")
+    #     print()
 
     with open('errors.txt', 'w') as file:
         for error in errors:
@@ -86,11 +89,13 @@ def load_all_database():
     db.create_table()
     db.insert_data(data_list)
 
+    return data_list, errors
+
 @app.get('/getEducativeCenters')
-def get_eduatcive_centers(localidad: str = Query(None),
-                            codigo_postal: str = Query(None),
-                            provincia: str = Query(None),
-                            tipo: str = Query(None)):
+async def get_eduatcive_centers(localidad: str | None = None,
+                            codigo_postal: str | None = None,
+                            provincia: str | None = None,
+                            tipo: str | None = None):
 
     db = DBConnector("../database") 
 

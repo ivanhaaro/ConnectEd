@@ -8,7 +8,7 @@ class CSVExtractor:
         data = []
         errors = []
         validations = Validations()
-        geo_service = GoogleMapsGeocoder('introduceApiKeyHere')
+        geo_service = GoogleMapsGeocoder('AIzaSyDI0bLLisjbLkXAjUD52_g_sZKGqGGn1jQ')
         with open(file_path, 'r', encoding='utf-8') as csv_file:
             csv_reader = csv.DictReader(csv_file, delimiter=';')  # Especifica el delimitador utilizado en tu CSV
             for row in csv_reader:
@@ -54,8 +54,8 @@ class CSVExtractor:
                     if 'TELEFONO' in row:
                         tel = row['TELEFONO']  
                         if not validations.isValidPhoneNum(tel):  
-                            errors.append('WARNING: El número de teléfono "' + tel + '" del centro: ' + dencen + ' es inválido.')
-                            tel = ''
+                            errors.append('ERROR: El número de teléfono "' + tel + '" del centro: ' + dencen + ' es inválido.')
+                            continue
 
                     # Detect address errors
                     direc = None
@@ -80,9 +80,15 @@ class CSVExtractor:
                         localidad=localidad,
                         provincia=provincia
                     )
+
                     data_model.latitud, data_model.longitud = geo_service.getlatlong(data_model.direccion)
-                    print(f"Longitud: {data_model.longitud} Latitud= {data_model.latitud}")
+                    if data_model.latitud == None or data_model.longitud == None:
+                        errors.append('ERROR: La latitud y longitud del centro ' + dencen + ' no han podido ser encontrados.')
+                        continue
+
                     data.append(data_model)
+
                 except Exception as e:
                     print(f"Error al procesar la fila {e}")
+
         return data, errors
