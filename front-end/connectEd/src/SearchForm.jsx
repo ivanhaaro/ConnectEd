@@ -65,10 +65,10 @@ const SearchForm = ({ onSubmit }) => {
                 label="Tipo de Centro"
                 onChange={handleChange}
               >
-                <MenuItem value={"privado"}>Privado</MenuItem>
-                <MenuItem value={"concertado"}>Concertado</MenuItem>
-                <MenuItem value={"publico"}>Público</MenuItem>
-                <MenuItem value={"otros"}>Otros</MenuItem>
+                <MenuItem value={"Privado"}>Privado</MenuItem>
+                <MenuItem value={"Concertado"}>Concertado</MenuItem>
+                <MenuItem value={"Publico"}>Público</MenuItem>
+                <MenuItem value={"Otros"}>Otros</MenuItem>
               </Select>
             </FormControl>
           </Grid>
