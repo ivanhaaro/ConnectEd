@@ -17,7 +17,7 @@ const MapDisplay = ({ centrosEducativos }) => {
         />
       </MapContainer>
       {centrosEducativos.map(centro => (
-        <Marker key={centro.id} position={[centro.latitud, centro.longitud]}>
+        <Marker key={centro.nombre} position={[centro.latitud, centro.longitud]}>
           <Popup>
             {centro.nombre} 
           </Popup>

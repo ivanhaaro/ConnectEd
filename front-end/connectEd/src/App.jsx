@@ -12,6 +12,7 @@ function App() {
 
   const handleSearchSubmit = async (data) => {
     try {
+      console.log("se hace con data = "+ data);
       const centrosEducativosTemp = await fetchCentrosEducativos(data);
       setCentrosEducativos(centrosEducativosTemp);
     } catch (error) {
