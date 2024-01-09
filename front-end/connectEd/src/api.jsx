@@ -28,14 +28,13 @@ export const CargaDatosMUR = async () => {
 
         const response = await fetch(`http://127.0.0.1:8000/loadDataMUR`, {
           method: "GET",
-          mode: 'no-cors'
         });
-        console.log(response.body);
+        
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-    
-        return await response.json();
+
+        return await response;
       } catch (error) {
         console.error('Error fetching data:', error);
         throw error;
