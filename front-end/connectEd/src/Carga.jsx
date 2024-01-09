@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import "./Carga.css";
+import { fetchCargaDatos } from "./api"; 
 
-// Simulación de datos de la base de datos
 const datosDeLaBD = {
-  Valencia: "Información de la Comunidad Valenciana",
-  Murcia: "Información de Murcia",
-  Cataluña: "Información de Cataluña",
+  comunidad_valenciana: "comunidad_valenciana",
+  murcia: "murcia",
+  cataluña: "cataluña",
 };
 
 const Carga = () => {
@@ -21,19 +20,30 @@ const Carga = () => {
   const [textoInformacion, setTextoInformacion] = useState("");
 
   // Función para cargar la información de la base de datos
-  const cargarInformacion = () => {
-    // Simulación de carga de datos desde la base de datos
-    const informacion = fuentesSeleccionadas
-      .map((fuente) => datosDeLaBD[fuente])
-      .join("\n");
+  const cargarInformacion = async () => {
+    try {
+      // Realiza la llamada a la API con las fuentes seleccionadas
+      const response = await fetchCargaDatos(fuentesSeleccionadas);
 
-    setTextoInformacion(informacion);
+      // Extrae el mensaje y los defectos de la respuesta
+      //const { message, defectos } = await response.json();
+
+      // Actualiza el estado del texto de información con el mensaje y los defectos
+      setTextoInformacion(response);
+    } catch (error) {
+      // Manejar el error según tus necesidades
+      console.error('Error en cargarInformacion:', error);
+      setTextoInformacion(`Error al cargar la información: ${error.message}`);
+    }
   };
 
-  // Efecto para cargar la información cuando cambian las fuentes seleccionadas
-  useEffect(() => {
-    cargarInformacion();
-  }, [fuentesSeleccionadas]);
+  // Función para cancelar la carga(borrar formulario)
+  const cancelar = () => {
+    setFuentesSeleccionadas([]);
+
+    setTextoInformacion("");
+  };
+
 
   // Función para manejar el cambio en las fuentes seleccionadas
   const handleCheckboxChange = (fuente) => {
@@ -94,7 +104,8 @@ const Carga = () => {
           type="submit"
           fullWidth
           variant="contained"
-          sx={{ mt: 3, mb: 2 }}
+          sx={{ mt: 3, mb: 2 }}ç
+          onClick={cancelar}
         >
           Cancelar
         </Button>
@@ -104,6 +115,7 @@ const Carga = () => {
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
+          onClick={cargarInformacion}
         >
           Cargar
         </Button>

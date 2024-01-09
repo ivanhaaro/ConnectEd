@@ -3,7 +3,7 @@ import SearchForm from "./SearchForm";
 import MapDisplay from "./MapDisplay";
 import "./App.css";
 import Navbar from "./NavBar";
-import Container from "@mui/material/Container";
+import { fetchCentrosEducativos } from "./api"; 
 import Carga from "./Carga";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -11,20 +11,12 @@ function App() {
   const [centrosEducativos, setCentrosEducativos] = React.useState([]);
 
   const handleSearchSubmit = async (data) => {
-    const response = await fetch("connectEd/busqueda", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
+    try {
+      const centrosEducativosTemp = await fetchCentrosEducativos(data);
+      setCentrosEducativos(centrosEducativosTemp);
+    } catch (error) {
+      console.error('Error fetching data:', error);
     }
-
-    const centrosEducativosTemp = await response.json();
-    setCentrosEducativos(centrosEducativosTemp);
   };
 
   return (
