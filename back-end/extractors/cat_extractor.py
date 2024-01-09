@@ -123,7 +123,7 @@ class CATExtractor:
                 localidad=localidad,
                 provincia=provincia,
             )
-
+            
             # Agregar el objeto a la lista de datos
             data.append(data_model)
 

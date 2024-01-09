@@ -1,8 +1,8 @@
-ERROR: MURCIA, El cÃ³digo postal "" del centro: VIRGEN DEL ORO es invÃ¡lido.
-WARNING: COMUNIDAD VALENCIANA, El cÃ³digo postal "03802"ha sido completado debido a su incorrecto formato
-WARNING: COMUNIDAD VALENCIANA, El cÃ³digo postal "03420"ha sido completado debido a su incorrecto formato
-WARNING: COMUNIDAD VALENCIANA, El cÃ³digo postal "03190"ha sido completado debido a su incorrecto formato
-WARNING: COMUNIDAD VALENCIANA, El nÃºmero de telÃ©fono "" del centro: D.TERRITORIAL DE EDUCACIÃ“N, FORMACIÃ“N Y TRABAJO - ALICANTE estÃ¡ vacÃ­o.
-WARNING: COMUNIDAD VALENCIANA, El cÃ³digo postal "03007"ha sido completado debido a su incorrecto formato
-WARNING: COMUNIDAD VALENCIANA, El nÃºmero de telÃ©fono "" del centro: ALICER estÃ¡ vacÃ­o.
-WARNING: COMUNIDAD VALENCIANA, El cÃ³digo postal "03010"ha sido completado debido a su incorrecto formato
+ERROR: MURCIA, El código postal "" del centro: VIRGEN DEL ORO es inválido.
+WARNING: COMUNIDAD VALENCIANA, El código postal "03802"ha sido completado debido a su incorrecto formato
+WARNING: COMUNIDAD VALENCIANA, El código postal "03420"ha sido completado debido a su incorrecto formato
+WARNING: COMUNIDAD VALENCIANA, El código postal "03190"ha sido completado debido a su incorrecto formato
+WARNING: COMUNIDAD VALENCIANA, El número de teléfono "" del centro: D.TERRITORIAL DE EDUCACIÓN, FORMACIÓN Y TRABAJO - ALICANTE está vacío.
+WARNING: COMUNIDAD VALENCIANA, El código postal "03007"ha sido completado debido a su incorrecto formato
+WARNING: COMUNIDAD VALENCIANA, El número de teléfono "" del centro: ALICER está vacío.
+WARNING: COMUNIDAD VALENCIANA, El código postal "03010"ha sido completado debido a su incorrecto formato

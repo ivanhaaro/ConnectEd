@@ -46,15 +46,14 @@ export const CargaDatosCV = async () => {
   try {
 
       const response = await fetch(`http://127.0.0.1:8000/loadDataCV`, {
-        method: "GET",
-        mode: 'no-cors'
+        method: "GET"
       });
       console.log(response.body);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
   
-      return await response.json();
+      return await response;
     } catch (error) {
       console.error('Error fetching data:', error);
       throw error;
@@ -65,15 +64,14 @@ export const CargaDatosCAT = async () => {
   try {
 
       const response = await fetch(`http://127.0.0.1:8000/loadDataCAT`, {
-        method: "GET",
-        mode: 'no-cors'
+        method: "GET"
       });
       console.log(response.body);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
   
-      return await response.json();
+      return await response;
     } catch (error) {
       console.error('Error fetching data:', error);
       throw error;
@@ -85,15 +83,14 @@ export const CargaDatosALL= async () => {
   try {
 
       const response = await fetch(`http://127.0.0.1:8000/loadDataALL`, {
-        method: "GET",
-        mode: 'no-cors'
+        method: "GET"
       });
       console.log(response.body);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
   
-      return await response.json();
+      return await response;
     } catch (error) {
       console.error('Error fetching data:', error);
       throw error;

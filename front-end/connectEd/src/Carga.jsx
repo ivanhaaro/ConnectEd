@@ -21,45 +21,50 @@ const Carga = () => {
 
   // Función para cargar la información de la base de datos
   const cargarInformacion = async () => {
-    try {
-      // Realiza la llamada a la API con las fuentes seleccionadas
-      var response;
-      if(fuentesSeleccionadas.length > 2){
-        const response = await CargaDatosALL();
-      } else {
-        console.log(fuentesSeleccionadas);
-        const responses = [];
-          fuentesSeleccionadas.forEach(async (fuente) => {
-            switch (fuente) {
-              case 'Comunidad_Valenciana':
-                // Realiza cálculos específicos para 'Comunidad_Valenciana'
-                const responseCv = await CargaDatosCV();
-                response += responseCv + "";
-                break;
-              case 'Murcia':
-                // Realiza cálculos específicos para 'Murcia'
-                const responseMur = await CargaDatosMUR();
-                const { message, defectos } = await responseMur.json();
-                responses.push(message);
-                console.log(message);
-                console.log(defectos);
-                break;
-              case 'Cataluña':
-                // Realiza cálculos específicos para 'Cataluña'
-                const responseCat = await CargaDatosCAT();
-                response += responseCat + "";
-                break;
-              // Agrega más casos según sea necesario para otras fuentes
-              default:
-                // Realiza acciones predeterminadas si la fuente no coincide con ningún caso
-                break;
-            }
-            
-          });
-          response = responses.join('');
-        };
+  try {
+    var response = '';
+    const responses = [];
+    if (fuentesSeleccionadas.length > 2) {
+      const responseAll = await CargaDatosALL();
+      var { message, defectos } = await responseAll.json()
+      responses.push(message);
+      var defectosString = defectos.join('\n');
+      responses.push(defectosString);
+    } else {
+      console.log(fuentesSeleccionadas);
       
 
+      for (const fuente of fuentesSeleccionadas) {
+        switch (fuente) {
+          case 'Comunidad_Valenciana':
+            const responseCv = await CargaDatosCV();
+            var { message, defectos } = await responseCv.json();
+            responses.push(message);
+            var defectosString = defectos.join('\n');
+            responses.push(defectosString);
+            break;
+          case 'Murcia':
+            const responseMur = await CargaDatosMUR();
+            var { message, defectos } = await responseMur.json();
+            responses.push(message);
+            var defectosString = defectos.join('\n');
+            responses.push(defectosString);
+            break;
+          case 'Cataluña':
+            const responseCat = await CargaDatosCAT();
+            var { message, defectos } = await responseCat.json();
+            responses.push(message);
+            var defectosString = defectos.join('\n');
+            responses.push(defectosString);
+            break;
+          // Agrega más casos según sea necesario para otras fuentes
+          default:
+            // Acciones predeterminadas si la fuente no coincide con ningún caso
+            break;
+        }
+      }
+    }
+      response = responses.join('\n');
       // Actualiza el estado del texto de información con el mensaje y los defectos
       setTextoInformacion(response);
     } catch (error) {
