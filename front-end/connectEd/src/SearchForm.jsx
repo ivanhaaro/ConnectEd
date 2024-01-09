@@ -17,7 +17,7 @@ const SearchForm = ({ onSubmit }) => {
       provincia: document.getElementById("province").value,
       tipo: tipoCentro,
     };
-
+    
     onSubmit(formData);
   };
 
