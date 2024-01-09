@@ -1,7 +1,6 @@
 import csv
 from models.data_model import DataModel
 from extractors.validations import Validations
-from geoapiservice.google_maps_service import GoogleMapsGeocoder
 
 class CSVExtractor:
     def extract_data(self, file_path):

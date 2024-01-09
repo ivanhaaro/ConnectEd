@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException
 
 from extractors.xml_extractor import XMLExtractor
 from extractors.csv_extractor import CSVExtractor
