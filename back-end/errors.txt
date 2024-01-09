@@ -1,5 +1,0 @@
-ERROR: El código postal "" del centro: VIRGEN DEL ORO es inválido.
-ERROR: La latitud y longitud del centro CENTRE PRIVAT MARÍA ASUNTA no han podido ser encontrados.
-ERROR: El número de teléfono "" del centro: D.TERRITORIAL DE EDUCACIÓN, FORMACIÓN Y TRABAJO - ALICANTE es inválido.
-ERROR: El número de teléfono "" del centro: ALICER es inválido.
-ERROR: La latitud y longitud del centro CENTRE PRIVAT LA MILAGROSA no han podido ser encontrados.
