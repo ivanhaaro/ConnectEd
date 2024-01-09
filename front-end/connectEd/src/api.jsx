@@ -3,13 +3,10 @@ export const fetchCentrosEducativos= async (data) => {
     try {
         // Construir la URL con los parámetros
         const queryParams = new URLSearchParams(data).toString();
-        const url = `http://127.0.0.1:8000/getEducativeCenters?${queryParams}`;
+        const url = `http://127.0.0.1:8001/getEducativeCenters?${queryParams}`;
         
         const response = await fetch(url, {
             method: "GET",
-            headers: {
-            "Content-Type": "application/json",
-            },
         });
         
         if (!response.ok) {

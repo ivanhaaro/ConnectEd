@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 import sys
 sys.path.append('..')
@@ -6,6 +7,14 @@ sys.path.append('..')
 from database.db_connector import DBConnector
 
 app = FastAPI(title='ConnectEd Búsqueda API', version='0.0.1', description='API de búsqueda de centros educativos de ConnectEd', )
+# Configuración de CORS para permitir cualquier origen
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Ruta para obtener centros educativos según los parámetros especificados
 @app.get('/getEducativeCenters')
