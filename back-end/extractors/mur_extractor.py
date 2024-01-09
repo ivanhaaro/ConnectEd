@@ -15,13 +15,12 @@ class MURExtractor:
             
             # Convierte la respuesta JSON en un diccionario
             murciaData = response.json()
-            print("Respuesta de la API:")
-            print(murciaData)
         except requests.exceptions.RequestException as e:
             print(f"Error al realizar la petición: {e}")
 
         data = []  # Lista para almacenar los objetos DataModel
         errors = []  # Lista para almacenar mensajes de error
+        geos = set() 
         validations = Validations()  # Instancia de la clase Validations para validar datos
 
         # Itera sobre los datos obtenidos de la API
@@ -117,6 +116,14 @@ class MURExtractor:
                 localidad=localidad,
                 provincia=provincia
             )
+
+            hash_code = lat+lon
+
+            if hash_code in geos:
+                errors.append('ERROR: MURCIA, El centro ' + dencen + ' ya se encuentra en la base de datos.')
+                continue
+            else:
+                geos.add(hash_code)
 
             data.append(data_model)  # Agrega el objeto DataModel a la lista
 

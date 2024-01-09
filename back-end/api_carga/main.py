@@ -2,6 +2,7 @@ from fastapi import FastAPI
 
 import sys
 sys.path.append('..')
+
 from extractors.cat_extractor import CATExtractor
 from extractors.cv_extractor import CVExtractor
 from extractors.mur_extractor import MURExtractor

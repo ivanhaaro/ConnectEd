@@ -15,14 +15,13 @@ class CATExtractor:
 
             # Obtener los datos de la respuesta JSON
             catData = response.json()
-            print("Respuesta de la API:")
-            print(catData)
         except requests.exceptions.RequestException as e:
             print(f"Error al realizar la petición: {e}")
 
         # Inicializar listas para almacenar datos y errores
         data = []
         errors = []
+        geos = set()
         validations = Validations()
 
         # Procesar los datos obtenidos de la API
@@ -123,6 +122,14 @@ class CATExtractor:
                 localidad=localidad,
                 provincia=provincia,
             )
+
+            hash_code = lat+lon
+
+            if hash_code in geos:
+                errors.append('ERROR: CATALUÑA, El centro ' + nombre + ' ya se encuentra en la base de datos.')
+                continue
+            else:
+                geos.add(hash_code)
 
             # Agregar el objeto a la lista de datos
             data.append(data_model)
