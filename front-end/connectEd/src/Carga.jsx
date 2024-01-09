@@ -3,10 +3,10 @@ import Button from "@mui/material/Button";
 import "./Carga.css";
 import { CargaDatosALL, CargaDatosCAT, CargaDatosCV, CargaDatosMUR} from "./api"; 
 
-const datosDeLaBD = {
+const Comunidades = {
   Comunidad_Valenciana: "Comunidad_Valenciana",
   Murcia: "Murcia",
-  Mataluña: "Cataluña",
+  Cataluña: "Cataluña",
 };
 
 const Carga = () => {
@@ -23,10 +23,12 @@ const Carga = () => {
   const cargarInformacion = async () => {
     try {
       // Realiza la llamada a la API con las fuentes seleccionadas
+      var response;
       if(fuentesSeleccionadas.length > 2){
         const response = await CargaDatosALL();
       } else {
-        response = "";
+        console.log(fuentesSeleccionadas);
+        const responses = [];
           fuentesSeleccionadas.forEach(async (fuente) => {
             switch (fuente) {
               case 'Comunidad_Valenciana':
@@ -37,7 +39,10 @@ const Carga = () => {
               case 'Murcia':
                 // Realiza cálculos específicos para 'Murcia'
                 const responseMur = await CargaDatosMUR();
-                response += responseMur + " ";
+                const { message, defectos } = await responseMur.json();
+                responses.push(message);
+                console.log(message);
+                console.log(defectos);
                 break;
               case 'Cataluña':
                 // Realiza cálculos específicos para 'Cataluña'
@@ -51,12 +56,9 @@ const Carga = () => {
             }
             
           });
+          response = responses.join('');
         };
       
-      
-
-      // Extrae el mensaje y los defectos de la respuesta
-      //const { message, defectos } = await response.json();
 
       // Actualiza el estado del texto de información con el mensaje y los defectos
       setTextoInformacion(response);
@@ -86,12 +88,12 @@ const Carga = () => {
 
   // Función para manejar la selección/deselección de todas las fuentes
   const handleSelectAll = () => {
-    if (fuentesSeleccionadas.length === Object.keys(datosDeLaBD).length) {
+    if (fuentesSeleccionadas.length === Object.keys(Comunidades).length) {
       // Deseleccionar todas si todas están seleccionadas
       setFuentesSeleccionadas([]);
     } else {
       // Seleccionar todas si no todas están seleccionadas
-      setFuentesSeleccionadas(Object.keys(datosDeLaBD));
+      setFuentesSeleccionadas(Object.keys(Comunidades));
     }
   };
 
@@ -109,14 +111,14 @@ const Carga = () => {
             <input
               type="checkbox"
               checked={
-                fuentesSeleccionadas.length === Object.keys(datosDeLaBD).length
+                fuentesSeleccionadas.length === Object.keys(Comunidades).length
               }
               onChange={handleSelectAll}
             />
             Seleccionar todas
           </label>
         </div>
-        {Object.keys(datosDeLaBD).map((fuente) => (
+        {Object.keys(Comunidades).map((fuente) => (
           <div key={fuente} class="contenedor-izquierda">
             <label>
               <input
