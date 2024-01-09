@@ -3,13 +3,10 @@ export const fetchCentrosEducativos= async (data) => {
     try {
         // Construir la URL con los parámetros
         const queryParams = new URLSearchParams(data).toString();
-        const url = `http://127.0.0.1:8000/getEducativeCenters?${queryParams}`;
-        
+        const url = `http://127.0.0.1:8001/getEducativeCenters?${queryParams}`;
+        console.log(url);
         const response = await fetch(url, {
             method: "GET",
-            headers: {
-            "Content-Type": "application/json",
-            },
         });
         
         if (!response.ok) {
@@ -28,14 +25,13 @@ export const CargaDatosMUR = async () => {
 
         const response = await fetch(`http://127.0.0.1:8000/loadDataMUR`, {
           method: "GET",
-          mode: 'no-cors'
         });
-        console.log(response.body);
+        
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-    
-        return await response.json();
+
+        return await response;
       } catch (error) {
         console.error('Error fetching data:', error);
         throw error;
@@ -47,15 +43,14 @@ export const CargaDatosCV = async () => {
   try {
 
       const response = await fetch(`http://127.0.0.1:8000/loadDataCV`, {
-        method: "GET",
-        mode: 'no-cors'
+        method: "GET"
       });
       console.log(response.body);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
   
-      return await response.json();
+      return await response;
     } catch (error) {
       console.error('Error fetching data:', error);
       throw error;
@@ -66,15 +61,14 @@ export const CargaDatosCAT = async () => {
   try {
 
       const response = await fetch(`http://127.0.0.1:8000/loadDataCAT`, {
-        method: "GET",
-        mode: 'no-cors'
+        method: "GET"
       });
       console.log(response.body);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
   
-      return await response.json();
+      return await response;
     } catch (error) {
       console.error('Error fetching data:', error);
       throw error;
@@ -86,15 +80,14 @@ export const CargaDatosALL= async () => {
   try {
 
       const response = await fetch(`http://127.0.0.1:8000/loadDataALL`, {
-        method: "GET",
-        mode: 'no-cors'
+        method: "GET"
       });
       console.log(response.body);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
   
-      return await response.json();
+      return await response;
     } catch (error) {
       console.error('Error fetching data:', error);
       throw error;

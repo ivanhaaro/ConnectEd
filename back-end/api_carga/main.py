@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 import sys
 sys.path.append('..')
@@ -10,6 +11,14 @@ from database.db_connector import DBConnector
 
 app = FastAPI(title='ConnectEd Carga API', version='0.0.1', description='API de carga del almacén de datos de ConnectEd', )
 
+# Configuración de CORS para permitir cualquier origen
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Función para cargar datos en la base de datos
 def load_database(data_list):

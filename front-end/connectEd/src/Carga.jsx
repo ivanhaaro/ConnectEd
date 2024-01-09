@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import "./Carga.css";
-import { fetchCargaDatos } from "./api"; 
+import { CargaDatosALL, CargaDatosCAT, CargaDatosCV, CargaDatosMUR} from "./api"; 
 
-const datosDeLaBD = {
-  comunidad_valenciana: "comunidad_valenciana",
-  murcia: "murcia",
-  cataluña: "cataluña",
+const Comunidades = {
+  Comunidad_Valenciana: "Comunidad_Valenciana",
+  Murcia: "Murcia",
+  Cataluña: "Cataluña",
 };
 
 const Carga = () => {
@@ -21,13 +21,50 @@ const Carga = () => {
 
   // Función para cargar la información de la base de datos
   const cargarInformacion = async () => {
-    try {
-      // Realiza la llamada a la API con las fuentes seleccionadas
-      const response = await fetchCargaDatos(fuentesSeleccionadas);
+  try {
+    var response = '';
+    const responses = [];
+    if (fuentesSeleccionadas.length > 2) {
+      const responseAll = await CargaDatosALL();
+      var { message, defectos } = await responseAll.json()
+      responses.push(message);
+      var defectosString = defectos.join('\n');
+      responses.push(defectosString);
+    } else {
+      console.log(fuentesSeleccionadas);
+      
 
-      // Extrae el mensaje y los defectos de la respuesta
-      //const { message, defectos } = await response.json();
-
+      for (const fuente of fuentesSeleccionadas) {
+        switch (fuente) {
+          case 'Comunidad_Valenciana':
+            const responseCv = await CargaDatosCV();
+            var { message, defectos } = await responseCv.json();
+            responses.push(message);
+            var defectosString = defectos.join('\n');
+            responses.push(defectosString);
+            break;
+          case 'Murcia':
+            const responseMur = await CargaDatosMUR();
+            var { message, defectos } = await responseMur.json();
+            responses.push(message);
+            var defectosString = defectos.join('\n');
+            responses.push(defectosString);
+            break;
+          case 'Cataluña':
+            const responseCat = await CargaDatosCAT();
+            var { message, defectos } = await responseCat.json();
+            responses.push(message);
+            var defectosString = defectos.join('\n');
+            responses.push(defectosString);
+            break;
+          // Agrega más casos según sea necesario para otras fuentes
+          default:
+            // Acciones predeterminadas si la fuente no coincide con ningún caso
+            break;
+        }
+      }
+    }
+      response = responses.join('\n');
       // Actualiza el estado del texto de información con el mensaje y los defectos
       setTextoInformacion(response);
     } catch (error) {
@@ -56,12 +93,12 @@ const Carga = () => {
 
   // Función para manejar la selección/deselección de todas las fuentes
   const handleSelectAll = () => {
-    if (fuentesSeleccionadas.length === Object.keys(datosDeLaBD).length) {
+    if (fuentesSeleccionadas.length === Object.keys(Comunidades).length) {
       // Deseleccionar todas si todas están seleccionadas
       setFuentesSeleccionadas([]);
     } else {
       // Seleccionar todas si no todas están seleccionadas
-      setFuentesSeleccionadas(Object.keys(datosDeLaBD));
+      setFuentesSeleccionadas(Object.keys(Comunidades));
     }
   };
 
@@ -79,14 +116,14 @@ const Carga = () => {
             <input
               type="checkbox"
               checked={
-                fuentesSeleccionadas.length === Object.keys(datosDeLaBD).length
+                fuentesSeleccionadas.length === Object.keys(Comunidades).length
               }
               onChange={handleSelectAll}
             />
             Seleccionar todas
           </label>
         </div>
-        {Object.keys(datosDeLaBD).map((fuente) => (
+        {Object.keys(Comunidades).map((fuente) => (
           <div key={fuente} class="contenedor-izquierda">
             <label>
               <input

@@ -1,8 +1,1 @@
-ERROR: MURCIA, El código postal "" del centro: VIRGEN DEL ORO es inválido.
-WARNING: COMUNIDAD VALENCIANA, El código postal "03802"ha sido completado debido a su incorrecto formato
-WARNING: COMUNIDAD VALENCIANA, El código postal "03420"ha sido completado debido a su incorrecto formato
-WARNING: COMUNIDAD VALENCIANA, El código postal "03190"ha sido completado debido a su incorrecto formato
-WARNING: COMUNIDAD VALENCIANA, El número de teléfono "" del centro: D.TERRITORIAL DE EDUCACIÓN, FORMACIÓN Y TRABAJO - ALICANTE está vacío.
-WARNING: COMUNIDAD VALENCIANA, El código postal "03007"ha sido completado debido a su incorrecto formato
-WARNING: COMUNIDAD VALENCIANA, El número de teléfono "" del centro: ALICER está vacío.
-WARNING: COMUNIDAD VALENCIANA, El código postal "03010"ha sido completado debido a su incorrecto formato
+ERROR: MURCIA, El c�digo postal "" del centro: VIRGEN DEL ORO es inv�lido.
