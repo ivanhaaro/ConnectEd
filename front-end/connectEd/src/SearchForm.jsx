@@ -1,22 +1,22 @@
-import React from 'react';
-import './SearchForm.css';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button'
-import Grid from '@mui/material/Grid';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
+import React from "react";
+import "./SearchForm.css";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
 
 const SearchForm = ({ onSubmit }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData.entries());
-    onSubmit(data); 
+    onSubmit(data);
   };
-  const [tipoCentro, setTipoCentro] = React.useState('');
+  const [tipoCentro, setTipoCentro] = React.useState("");
 
   const handleChange = (event) => {
     setTipoCentro(event.target.value);
@@ -65,9 +65,10 @@ const SearchForm = ({ onSubmit }) => {
                 label="Tipo de Centro"
                 onChange={handleChange}
               >
-                <MenuItem value={'privado'}>Privado</MenuItem>
-                <MenuItem value={'concertado'}>Concertado</MenuItem>
-                <MenuItem value={'publico'}>Público</MenuItem>
+                <MenuItem value={"privado"}>Privado</MenuItem>
+                <MenuItem value={"concertado"}>Concertado</MenuItem>
+                <MenuItem value={"publico"}>Público</MenuItem>
+                <MenuItem value={"otros"}>Otros</MenuItem>
               </Select>
             </FormControl>
           </Grid>
