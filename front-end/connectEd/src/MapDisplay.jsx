@@ -1,29 +1,31 @@
 import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+import GoogleMapReact from 'google-map-react';
+// import Box from '@mui/material/Box';
 import './MapDisplay.css';
-import Box from '@mui/material/Box';
 
+const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 const MapDisplay = ({ centrosEducativos }) => {
-  const position = [38.9984922, -0.1654128]; // Default position, change to your needs
+  const position = { lat: 38.9984922, lng: -0.1654128 }; // Default position
 
   return (
-    <Box sx={{ height: 500, width: '100%', marginTop: 2 }}>
-      <MapContainer center={position} zoom={13} style={{ height: '100%', width: '100%' }}>
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-        />
-      </MapContainer>
-      {centrosEducativos.map(centro => (
-        <Marker position={[centro.latitud, centro.longitud]}>
-          <Popup>
-            {centro.nombre} 
-          </Popup>
-        </Marker>
-      ))}
-    </Box>
+    <div style={{ height: '50%', width: '100%' }}>
+      <GoogleMapReact
+        bootstrapURLKeys={{ key: 'AIzaSyDI0bLLisjbLkXAjUD52_g_sZKGqGGn1jQ' }}
+        defaultCenter={position}
+        defaultZoom={13}
+        yesIWantToUseGoogleMapApiInternals
+      >
+        {centrosEducativos.map(centro => (
+          <AnyReactComponent
+            key={centro.nombre}
+            lat={centro.latitud}
+            lng={centro.longitud}
+            text={centro.nombre}
+          />
+        ))}
+      </GoogleMapReact>
+    </div>
   );
 };
 

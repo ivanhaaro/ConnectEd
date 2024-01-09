@@ -1,1 +1,1 @@
-ERROR: MURCIA, El código postal "" del centro: VIRGEN DEL ORO es inválido.
+WARNING: MURCIA, La dirección "" del centro:  es inválida.
