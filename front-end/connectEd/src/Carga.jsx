@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import "./Carga.css";
-import { fetchCargaDatos } from "./api"; 
+import { CargaDatosALL, CargaDatosCAT, CargaDatosCV, CargaDatosMUR} from "./api"; 
 
 const datosDeLaBD = {
-  comunidad_valenciana: "comunidad_valenciana",
-  murcia: "murcia",
-  cataluña: "cataluña",
+  Comunidad_Valenciana: "Comunidad_Valenciana",
+  Murcia: "Murcia",
+  Mataluña: "Cataluña",
 };
 
 const Carga = () => {
@@ -23,7 +23,37 @@ const Carga = () => {
   const cargarInformacion = async () => {
     try {
       // Realiza la llamada a la API con las fuentes seleccionadas
-      const response = await fetchCargaDatos(fuentesSeleccionadas);
+      if(fuentesSeleccionadas.length > 2){
+        const response = await CargaDatosALL();
+      } else {
+        response = "";
+          fuentesSeleccionadas.forEach(async (fuente) => {
+            switch (fuente) {
+              case 'Comunidad_Valenciana':
+                // Realiza cálculos específicos para 'Comunidad_Valenciana'
+                const responseCv = await CargaDatosCV();
+                response += responseCv + "";
+                break;
+              case 'Murcia':
+                // Realiza cálculos específicos para 'Murcia'
+                const responseMur = await CargaDatosMUR();
+                response += responseMur + " ";
+                break;
+              case 'Cataluña':
+                // Realiza cálculos específicos para 'Cataluña'
+                const responseCat = await CargaDatosCAT();
+                response += responseCat + "";
+                break;
+              // Agrega más casos según sea necesario para otras fuentes
+              default:
+                // Realiza acciones predeterminadas si la fuente no coincide con ningún caso
+                break;
+            }
+            
+          });
+        };
+      
+      
 
       // Extrae el mensaje y los defectos de la respuesta
       //const { message, defectos } = await response.json();
