@@ -11,17 +11,18 @@ import FormControl from "@mui/material/FormControl";
 
 const SearchForm = ({ onSubmit }) => {
   const handleClick = () => {
+    var tipoCentroTemp = tipoCentro == "Todos" ? "" : tipoCentro;
     const formData = {
       localidad: document.getElementById("locality").value,
       codigo_postal: document.getElementById("postalcode").value,
       provincia: document.getElementById("province").value,
-      tipo: tipoCentro,
+      tipo: tipoCentroTemp,
     };
     
     onSubmit(formData);
   };
 
-  const [tipoCentro, setTipoCentro] = React.useState("");
+  const [tipoCentro, setTipoCentro] = React.useState("Todos");
 
   const handleChange = (event) => {
     setTipoCentro(event.target.value);
@@ -34,7 +35,6 @@ const SearchForm = ({ onSubmit }) => {
           <TextField
             fullWidth
             margin="normal"
-            required
             id="locality"
             label="Localidad"
             name="locality"
@@ -69,6 +69,7 @@ const SearchForm = ({ onSubmit }) => {
               label="Tipo de Centro"
               onChange={handleChange}
             >
+              <MenuItem value={"Todos"}>Todos</MenuItem>
               <MenuItem value={"Privado"}>Privado</MenuItem>
               <MenuItem value={"Concertado"}>Concertado</MenuItem>
               <MenuItem value={"Publico"}>Público</MenuItem>

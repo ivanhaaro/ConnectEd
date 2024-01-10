@@ -33,7 +33,7 @@ class CATExtractor:
                     errors.append('ERROR: CATALUÑA, El nombre del centro "' + nombre + '" es inválido.')
                     continue
             else:
-                errors.append('ERROR: CATALUÑA, No está especificado el nombre del centro')
+                errors.append('ERROR: CATALUÑA, No está especificado el nombre del centro con localidad ' + localidad)
                 continue
 
             # Obtenemos el codigo postal
@@ -60,13 +60,13 @@ class CATExtractor:
                 elif codP == '43':
                     provincia = 'Tarragona'
                 else:
-                    errors.append('ERROR: CATALUÑA, La provincia especificada no es válida')
+                    errors.append('ERROR: CATALUÑA, La provincia especificada del centro ' + nombre + ' no es válida')
                     continue
 
                 localidad = {'codigo': '', 'nombre': item['nom_municipi']}
                 provincia = {'codigo': codP, 'nombre': provincia}
             else:
-                errors.append('ERROR: CATALUÑA, El nombre del municipio no está especificado')
+                errors.append('ERROR: CATALUÑA, El nombre del municipio del centro ' + nombre + ' no está especificado')
                 continue
 
             # Obtenemos el tipo de centro
@@ -77,7 +77,7 @@ class CATExtractor:
                 elif tipo == 'Públic':
                     tipo = 'Publico'
                 else:
-                    errors.append('ERROR: CATALUÑA, El tipo especificado no es correcto')
+                    errors.append('ERROR: CATALUÑA, El tipo especificado del centro ' + nombre + ' no es correcto')
                     continue
 
             # Obtenemos longitud y latitud
@@ -85,7 +85,7 @@ class CATExtractor:
                 lon = item['coordenades_geo_x']
                 lat = item['coordenades_geo_y']
                 if lon is None or lat is None:
-                    errors.append('ERROR: CATALUÑA, La latitud o la longitud no están correctamente especificadas')
+                    errors.append('ERROR: CATALUÑA, La latitud o la longitud del centro ' + nombre + ' no están correctamente especificadas')
                     continue
             else:
                 if 'georefer_ncia' in item:
@@ -96,10 +96,10 @@ class CATExtractor:
                         lat = numeros[1]
                         lon = numeros[0]
                     else:
-                        errors.append('ERROR: CATALUÑA, La latitud o la longitud no están correctamente especificadas')
+                        errors.append('ERROR: CATALUÑA, La latitud o la longitud del centro ' + nombre + ' no están correctamente especificadas')
                         continue
                 else:
-                    errors.append('ERROR: CATALUÑA, La latitud o la longitud no están correctamente especificadas')
+                    errors.append('ERROR: CATALUÑA, La latitud o la longitud del centro ' + nombre + ' no están correctamente especificadas')
                     continue
 
             # Obtenemos la dirección
@@ -107,7 +107,7 @@ class CATExtractor:
             if 'adre_a' in item:
                 direccion = item['adre_a']
                 if not validations.isValidString(direccion):
-                    errors.append('WARNING: CATALUÑA, La dirección "' + direccion + '" del centro: ' + nombre + ' es inválida.')
+                    errors.append('ERROR: CATALUÑA, La dirección "' + direccion + '" del centro: ' + nombre + ' es inválida.')
 
             # Crear un objeto DataModel
             data_model = DataModel(

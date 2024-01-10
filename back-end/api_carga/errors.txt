@@ -1,18 +1,19 @@
+ERROR: MURCIA, La longitud del centro: COMARCA ORIENTAL es no está especificada
 ERROR: MURCIA, El centro IES PROFESOR PEDRO ANTONIO RUIZ  RIQUELME ya se encuentra en la base de datos.
-WARNING: MURCIA, La dirección "" del centro:  es inválida.
-Número de centros cargados en REGIÓN DE MURCIA: 20
-WARNING: COMUNIDAD VALENCIANA, El código postal "03503"ha sido completado debido a su incorrecto formato
-WARNING: COMUNIDAD VALENCIANA, El código postal "03590"ha sido completado debido a su incorrecto formato
-WARNING: COMUNIDAD VALENCIANA, El código postal "03185"ha sido completado debido a su incorrecto formato
-WARNING: COMUNIDAD VALENCIANA, El código postal "03560"ha sido completado debido a su incorrecto formato
-WARNING: COMUNIDAD VALENCIANA, El código postal "03700"ha sido completado debido a su incorrecto formato
-WARNING: COMUNIDAD VALENCIANA, El código postal "03007"ha sido completado debido a su incorrecto formato
-WARNING: COMUNIDAD VALENCIANA, El código postal "03113"ha sido completado debido a su incorrecto formato
-ERROR: COMUNIDAD VALENCIANA, El tipo PRIV es inválido
+ERROR: MURCIA, La dirección "" del centro: CIUDAD DEL MAR es inválida.
+Número de centros cargados en REGIÓN DE MURCIA: 18
+WARNING: COMUNIDAD VALENCIANA, El código postal "03503" del centro IES L'ALMADRAVA ha sido completado debido a su incorrecto formato
+WARNING: COMUNIDAD VALENCIANA, El código postal "03590" del centro CEIP LES ROTES ha sido completado debido a su incorrecto formato
+WARNING: COMUNIDAD VALENCIANA, El código postal "03185" del centro CEIP ROMUALDO BALLESTER ha sido completado debido a su incorrecto formato
+WARNING: COMUNIDAD VALENCIANA, El código postal "03560" del centro ESCOLA PRIVADA DE MÚSICA ha sido completado debido a su incorrecto formato
+WARNING: COMUNIDAD VALENCIANA, El código postal "03700" del centro CENTRE PRIVAT FP PELUQUERÍA IMPAKTO ha sido completado debido a su incorrecto formato
+WARNING: COMUNIDAD VALENCIANA, El código postal "03007" del centro CENTRE PRIVAT FP ALBA FORMACIÓN ha sido completado debido a su incorrecto formato
+WARNING: COMUNIDAD VALENCIANA, El código postal "03113" del centro CENTRE PÚBLIC FPA PLA DE LA VALLONGA ha sido completado debido a su incorrecto formato
+ERROR: COMUNIDAD VALENCIANA, El tipo PRIV del centro CENTRE PRIV. ED. INFANTIL MAGDALA es inválido
 ERROR: COMUNIDAD VALENCIANA, El centro CEIP CERVANTES-DUALDE ya se encuentra en la base de datos.
 ERROR: COMUNIDAD VALENCIANA, El código postal "" del centro: CEIP ALBORXÍ es inválido.
 Número de centros cargados en COMUNIDAD VALENCIANA: 18
 ERROR: CATALUÑA, El centro Lestonnac ya se encuentra en la base de datos.
-ERROR: CATALUÑA, El tipo especificado no es correcto
-ERROR: CATALUÑA, La latitud o la longitud no están correctamente especificadas
+ERROR: CATALUÑA, El tipo especificado del centro Escola Amadeu Vives no es correcto
+ERROR: CATALUÑA, La latitud o la longitud del centro Escola Bressol Vent de Migjorn no están correctamente especificadas
 Número de centros cargados en CATALUÑA: 18

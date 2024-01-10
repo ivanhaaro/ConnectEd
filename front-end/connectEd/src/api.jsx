@@ -22,6 +22,24 @@ export const fetchCentrosEducativos= async (data) => {
     }
   };
 
+export const fetchCentrosEducativosAll= async () => {
+  try {
+      const url = `http://127.0.0.1:8001/getEducativeCenters?`;
+      console.log(url);
+      const response = await fetch(url, {
+          method: "GET",
+      });
+      
+      if (!response.ok) {
+          throw new Error("Network response was not ok");
+      }
+      return await response.json();
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw error; 
+  }
+};  
+
 // Petición para la carga de datos de Murcia
 export const CargaDatosMUR = async () => { 
     try {

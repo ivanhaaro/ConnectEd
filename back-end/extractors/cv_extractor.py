@@ -44,7 +44,7 @@ class CVExtractor:
             elif titularidad == 'OTROS':
                 titularidad = 'Otros'
             else:
-                errors.append(f'ERROR: COMUNIDAD VALENCIANA, El tipo {titularidad} es inválido')
+                errors.append(f'ERROR: COMUNIDAD VALENCIANA, El tipo {titularidad} del centro ' + dencen + ' es inválido')
                 continue
 
             # Detecta errores en la dirección del centro
@@ -55,7 +55,7 @@ class CVExtractor:
                     errors.append('ERROR: COMUNIDAD VALENCIANA, La dirección "' + direc + '" del centro: ' + dencen + ' es inválida.')
                     continue
             else:
-                errors.append('ERROR: COMUNIDAD VALENCIANA, La dirección no existe.')
+                errors.append('ERROR: COMUNIDAD VALENCIANA, La dirección del centro ' + dencen + '  no existe.')
                 continue
 
             # Detección de errores en latitud y longitud
@@ -93,7 +93,7 @@ class CVExtractor:
                 cpcen = item['CODIGO_POSTAL']
                 if validations.isAlicante(cpcen):
                     cpcen = '0' + cpcen
-                    errors.append('WARNING: COMUNIDAD VALENCIANA, El código postal "' + cpcen + '"ha sido completado debido a su incorrecto formato')
+                    errors.append('WARNING: COMUNIDAD VALENCIANA, El código postal "' + cpcen + '" del centro ' + dencen + ' ha sido completado debido a su incorrecto formato')
                 elif not validations.isValidPostalCode(cpcen):
                     errors.append('ERROR: COMUNIDAD VALENCIANA, El código postal "' + cpcen + '" del centro: ' + dencen + ' es inválido.')
                     continue
@@ -102,7 +102,7 @@ class CVExtractor:
                 if 'PROVINCIA' in item:
                     provincia = {'codigo': cpcen[:2], 'nombre': item['PROVINCIA']}
             else:
-                errors.append('ERROR: COMUNIDAD VALENCIANA, El código postal no está especificado')
+                errors.append('ERROR: COMUNIDAD VALENCIANA, El código postal del centro ' + dencen + ' no está especificado')
                 continue
 
             data_model = DataModel(

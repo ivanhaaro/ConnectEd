@@ -4,8 +4,6 @@ import {GoogleMap, useLoadScript, MarkerF, InfoWindow, Marker, LoadScript} from 
 import './MapDisplay.css';
 
 
-
-
 const MapDisplay = ({ centrosEducativos }) => {
   // const { isLoaded } = useLoadScript({
   //   googleMapsApiKey: 'AIzaSyDI0bLLisjbLkXAjUD52_g_sZKGqGGn1jQ'
@@ -105,10 +103,10 @@ const MapDisplay = ({ centrosEducativos }) => {
             <div className='marcador'>
             <h3>{selectedMarker.name}</h3>
             <p>Código postal: {selectedMarker.codigo_postal}</p>
-            <p>Teléfono: {selectedMarker.telefono}</p>
+            {selectedMarker.telefono && <p>Teléfono: {selectedMarker.telefono}</p>}
             <p>Localidad: {selectedMarker.localidad}</p>
             <p>Provincia: {selectedMarker.provincia}</p>
-            <p>Descripción: {selectedMarker.descripcion}</p>
+            {selectedMarker.descripcion && <p>Descripción: {selectedMarker.descripcion}</p>}
             <p>.</p>
             <p> </p>
           </div>

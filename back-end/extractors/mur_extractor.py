@@ -42,13 +42,14 @@ class MURExtractor:
             elif titularidad == 'C':
                 titularidad = 'Concertado'
             else:
-                errors.append('ERROR: MURCIA, El tipo "' + titularidad + '" del centro: ' + domcen + ' es inválido')
+                errors.append('ERROR: MURCIA, El tipo "' + titularidad + '" del centro: ' + dencen + ' es inválido')
                 continue
 
             # Detecta errores en la dirección del centro
             domcen = item['domcen']
             if not validations.isValidString(domcen):
-                errors.append('WARNING: MURCIA, La dirección "' + domcen + '" del centro: ' + domcen + ' es inválida.')
+                errors.append('ERROR: MURCIA, La dirección "' + domcen + '" del centro: ' + dencen + ' es inválida.')
+                continue
 
             # Detección de errores en latitud y longitud
             if 'geo-referencia' in item:
@@ -59,12 +60,18 @@ class MURExtractor:
                     if not validations.isValidString(str(lon)):
                         errors.append('ERROR: MURCIA, La longitud "' + lon + '" del centro: ' + dencen + ' es inválida.') 
                         continue
+                else:
+                    errors.append('ERROR: MURCIA, La longitud del centro: ' + dencen + ' es no está especificada') 
+                    continue
 
                 if 'lat' in referencia:
                     lat = item['geo-referencia']['lat']
                     if not validations.isValidString(str(lat)):
                         errors.append('ERROR: MURCIA, La latitud "' + lat + '" del centro: ' + dencen + ' es inválida.')
                         continue
+                else:
+                    errors.append('ERROR: MURCIA, La latitud del centro: ' + dencen + ' es no está especificada') 
+                    continue
             else:
                 errors.append('ERROR: MURCIA, La latitud y longitud del centro: ' + dencen + ' son inválidas.')
                 continue

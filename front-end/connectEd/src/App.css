@@ -29,11 +29,8 @@ body, html {
 }
 .table-container {
   max-width: 100%;
-  max-height: 200px; /* Ajusta la altura según tus necesidades */
+  max-height: 400px; /* Ajusta la altura según tus necesidades */
   overflow-x: auto;
-  overflow-y: auto; /* Añade una barra de desplazamiento vertical si es necesario */
-  margin: 20px auto; /* Centra el contenedor y agrega márgenes superior e inferior */
-  padding: 10px; /* Añade un poco de relleno alrededor del contenedor */
   background-color: #f7f7f7; /* Color de fondo para visualización */
 }
 .table-container {
