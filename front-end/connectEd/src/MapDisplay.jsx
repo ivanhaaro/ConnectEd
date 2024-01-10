@@ -3,24 +3,24 @@ import {GoogleMap, useLoadScript, MarkerF, InfoWindow, Marker, LoadScript} from 
 // import Box from '@mui/material/Box';
 import './MapDisplay.css';
 
-const markers = [
-  {
-    id: 1,
-    name: 'Nick eres un putero',
-    position: { lat: 38.9984922, lng: -0.1654128}
 
-  },
-  {
-    id: 2,
-    name: 'Nick eres un putero y además un ratón',
-    position: { lat: 38.20250862278044, lng: -1.0461902618408203}
-  } 
-]
+
 
 const MapDisplay = ({ centrosEducativos }) => {
   // const { isLoaded } = useLoadScript({
   //   googleMapsApiKey: 'AIzaSyDI0bLLisjbLkXAjUD52_g_sZKGqGGn1jQ'
   // })
+
+  const markers = centrosEducativos.map((centro, index) => ({
+    id: index,
+    name: centro.nombre,
+    position: {
+      lat: centro.latitud,
+      lng: centro.longitud,
+    },
+  }));
+
+  const [isInfoWindowOpen, setIsInfoWindowOpen] = useState(false);
 
   const mapStyles = {
     height: '50%',
@@ -29,10 +29,16 @@ const MapDisplay = ({ centrosEducativos }) => {
 
   const handleMarkerClick = (marker) => {
     setActivePosition(marker.position);
-    // if(marker === activeMarker) {
-    //   return;
-    // }
+    if(marker === selectedMarker) {
+      return;
+    }
     setSelectedMarker(marker);
+    setIsInfoWindowOpen(true);
+  };
+
+  const handleInfoWindowClose = () => {
+    setIsInfoWindowOpen(false);
+    setSelectedMarker(null);
   };
 
   const mapOptions = {
@@ -57,10 +63,14 @@ const MapDisplay = ({ centrosEducativos }) => {
         <InfoWindow
           position={selectedMarker.position}
           onCloseClick={() => setSelectedMarker(null)}
+          style={{ background: 'white', color: 'black' }}
         >
           <div>
             <h3>Información del Marcador</h3>
             <p>{selectedMarker.name}</p>
+            <p> </p>
+            <p> </p>
+            <p> </p>
           </div>
         </InfoWindow>
       );
@@ -79,7 +89,18 @@ const MapDisplay = ({ centrosEducativos }) => {
           />
         ))}
 
-        {renderInfoWindow()}
+        {selectedMarker && (
+          <InfoWindow
+            position={selectedMarker.position}
+            onCloseClick={handleInfoWindowClose}
+          >
+            <div className='marcador'>
+              <h3>Información del Marcador</h3>
+              <p>{selectedMarker.name}</p>
+              <p>.</p>
+            </div>
+          </InfoWindow>
+        )}
       </GoogleMap>
   ));
 
