@@ -135,4 +135,5 @@ class CATExtractor:
             data.append(data_model)
 
         # Devolver los datos y errores
+        errors.append('Número de centros cargados en CATALUÑA: ' + len(geos))
         return data, errors
