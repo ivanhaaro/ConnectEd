@@ -128,5 +128,5 @@ class CVExtractor:
 
             
             data.append(data_model)  # Agrega el objeto DataModel a la lista
-        errors.append('Número de centros cargados en COMUNIDAD VALENCIANA: ' + len(geos))
+        errors.append('Número de centros cargados en COMUNIDAD VALENCIANA: ' + str(len(geos)))
         return data, errors  # Devuelve la lista de objetos DataModel y la lista de errores

@@ -126,5 +126,5 @@ class MURExtractor:
                 geos.add(hash_code)
 
             data.append(data_model)  # Agrega el objeto DataModel a la lista
-        errors.append('Número de centros cargados en REGIÓN DE MURCIA: ' + len(geos))
+        errors.append('Número de centros cargados en REGIÓN DE MURCIA: ' + str(len(geos)))
         return data, errors  # Devuelve la lista de objetos DataModel y la lista de errores

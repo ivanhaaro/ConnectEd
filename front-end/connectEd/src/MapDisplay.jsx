@@ -14,6 +14,11 @@ const MapDisplay = ({ centrosEducativos }) => {
   const markers = centrosEducativos.map((centro, index) => ({
     id: index,
     name: centro.nombre,
+    codigo_postal: centro.codigo_postal,
+    telefono: centro.telefono,
+    localidad: centro.localidad,
+    provincia: centro.provincia,
+    descripcion: centro.descripcion,
     position: {
       lat: centro.latitud,
       lng: centro.longitud,
@@ -57,26 +62,29 @@ const MapDisplay = ({ centrosEducativos }) => {
 
   const [selectedMarker, setSelectedMarker] = React.useState(null);
 
-  const renderInfoWindow = () => {
-    if (selectedMarker && selectedMarker.name) {
-      return (
-        <InfoWindow
-          position={selectedMarker.position}
-          onCloseClick={() => setSelectedMarker(null)}
-          style={{ background: 'white', color: 'black' }}
-        >
-          <div>
-            <h3>Información del Marcador</h3>
-            <p>{selectedMarker.name}</p>
-            <p> </p>
-            <p> </p>
-            <p> </p>
-          </div>
-        </InfoWindow>
-      );
-    }
-    return null;
-  };
+  // const renderInfoWindow = () => {
+  //   if (selectedMarker && selectedMarker.name) {
+  //     return (
+  //       <InfoWindow
+  //         position={selectedMarker.position}
+  //         onCloseClick={() => setSelectedMarker(null)}
+  //         style={{ background: 'white', color: 'black' }}
+  //       >
+  //         <div>
+  //           <h3>{selectedMarker.name}</h3>
+  //           <p>{selectedMarker.codigo_postal}</p>
+  //           <p>{selectedMarker.telefono}</p>
+  //           <p>{selectedMarker.localidad}</p>
+  //           <p>{selectedMarker.provincia}</p>
+  //           <p>{selectedMarker.descripcion}</p>
+  //           <p> </p>
+  //           <p> </p>
+  //         </div>
+  //       </InfoWindow>
+  //     );
+  //   }
+  //   return null;
+  // };
 
   const memoizedMap = useMemo (
     () => (
@@ -95,10 +103,15 @@ const MapDisplay = ({ centrosEducativos }) => {
             onCloseClick={handleInfoWindowClose}
           >
             <div className='marcador'>
-              <h3>Información del Marcador</h3>
-              <p>{selectedMarker.name}</p>
-              <p>.</p>
-            </div>
+            <h3>{selectedMarker.name}</h3>
+            <p>Código postal: {selectedMarker.codigo_postal}</p>
+            <p>Teléfono: {selectedMarker.telefono}</p>
+            <p>Localidad: {selectedMarker.localidad}</p>
+            <p>Provincia: {selectedMarker.provincia}</p>
+            <p>Descripción: {selectedMarker.descripcion}</p>
+            <p>.</p>
+            <p> </p>
+          </div>
           </InfoWindow>
         )}
       </GoogleMap>
