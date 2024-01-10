@@ -1,1 +1,15 @@
+ERROR: MURCIA, El centro IES PROFESOR PEDRO ANTONIO RUIZ  RIQUELME ya se encuentra en la base de datos.
 WARNING: MURCIA, La dirección "" del centro:  es inválida.
+WARNING: COMUNIDAD VALENCIANA, El código postal "03503"ha sido completado debido a su incorrecto formato
+WARNING: COMUNIDAD VALENCIANA, El código postal "03590"ha sido completado debido a su incorrecto formato
+WARNING: COMUNIDAD VALENCIANA, El código postal "03185"ha sido completado debido a su incorrecto formato
+WARNING: COMUNIDAD VALENCIANA, El código postal "03560"ha sido completado debido a su incorrecto formato
+WARNING: COMUNIDAD VALENCIANA, El código postal "03700"ha sido completado debido a su incorrecto formato
+WARNING: COMUNIDAD VALENCIANA, El código postal "03007"ha sido completado debido a su incorrecto formato
+WARNING: COMUNIDAD VALENCIANA, El código postal "03113"ha sido completado debido a su incorrecto formato
+ERROR: COMUNIDAD VALENCIANA, El tipo PRIV es inválido
+ERROR: COMUNIDAD VALENCIANA, El centro CEIP CERVANTES-DUALDE ya se encuentra en la base de datos.
+ERROR: COMUNIDAD VALENCIANA, El código postal "" del centro: CEIP ALBORXÍ es inválido.
+ERROR: CATALUÑA, El centro Lestonnac ya se encuentra en la base de datos.
+ERROR: CATALUÑA, El tipo especificado no es correcto
+ERROR: CATALUÑA, La latitud o la longitud no están correctamente especificadas
