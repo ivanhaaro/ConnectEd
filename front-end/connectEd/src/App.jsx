@@ -6,6 +6,7 @@ import Navbar from "./NavBar";
 import { fetchCentrosEducativos } from "./api"; 
 import Carga from "./Carga";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import DatosTabla from "./Tabla";
 
 function App() {
   const [centrosEducativos, setCentrosEducativos] = React.useState([]);
@@ -42,6 +43,12 @@ const HomeSearchForm = ({ onSubmit, centrosEducativos }) => (
   <>
     <SearchForm onSubmit={onSubmit} />
     <MapDisplay centrosEducativos={centrosEducativos} />
+    <div className="tableDatos">
+      <div className="table-container">
+      <DatosTabla centrosEducativos={centrosEducativos} />
+      </div>
+    </div>
+    
   </>
 );
 

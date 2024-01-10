@@ -1,0 +1,26 @@
+/* Estilos básicos para la tabla */
+th, td {
+    border: 2px solid #dddddd; /* Grosor de los bordes */
+    padding: 8px;
+    text-align: left;
+    color: #000000; /* Color de texto negro */
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold; /* Texto en negrita */
+  }
+  
+  /* Estilos para el contenedor principal */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  
+  h1 {
+    color: #333333;
+  }
+  p {
+    color: #333333;
+  }
+  
